@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* ── Shared component classes ────────────────────────────────────────────── */
+@layer components {
+  .section-eyebrow {
+    @apply font-display text-[0.7rem] font-semibold tracking-[0.14em] uppercase
+           text-tq mb-3.5 flex items-center gap-2.5;
+  }
+  .section-eyebrow::before {
+    content: '';
+    @apply block w-6 h-px bg-tq flex-shrink-0;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-1.5 px-6 py-2.5 rounded-lg
+           font-display text-[0.85rem] font-semibold tracking-[0.02em]
+           no-underline cursor-pointer transition-all duration-200
+           active:scale-95;
+  }
+  .btn-solid {
+    @apply btn bg-tq text-white border border-tq
+           hover:bg-tq-dim hover:border-tq-dim hover:-translate-y-0.5
+           hover:shadow-[0_8px_28px_rgba(32,178,160,0.18)];
+  }
+  .btn-outline {
+    @apply btn bg-transparent text-ink border border-rule
+           hover:border-tq hover:text-tq-dim hover:-translate-y-0.5;
+  }
+}
+
+/* Reveal-on-scroll utility — toggled by useReveal hook */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+}
