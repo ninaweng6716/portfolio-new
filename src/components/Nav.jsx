@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { info } from '../data/portfolio'
+import { info } from '../data/info'
 
 export default function Nav() {
   const [stuck, setStuck] = useState(false)

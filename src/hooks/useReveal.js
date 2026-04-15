@@ -1,10 +1,5 @@
 import { useEffect } from 'react'
 
-/**
- * Attaches an IntersectionObserver to every element with class "reveal".
- * When they enter the viewport, the class "visible" is added — which CSS
- * transitions opacity and translateY to their final values.
- */
 export function useReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(

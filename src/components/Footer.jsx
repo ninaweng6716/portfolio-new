@@ -1,4 +1,4 @@
-import { info } from '../data/portfolio'
+import { info } from '../data/info'
 
 export default function Footer() {
   return (

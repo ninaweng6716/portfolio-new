@@ -1,4 +1,5 @@
-import { about, info } from '../data/portfolio'
+import { info } from '../data/info'
+import { about } from '../data/about'
 
 export default function About() {
   return (

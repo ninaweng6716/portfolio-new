@@ -1,4 +1,5 @@
-import { info, skills } from '../data/portfolio'
+import { info } from '../data/info'
+import { skills } from '../data/skills'
 
 export default function Hero() {
   return (
