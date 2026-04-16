@@ -20,7 +20,7 @@ export default {
           3: '#9EA8B0',
         },
         rule: '#E4E8EB',
-        bg: '#F7F8F7',
+        bg: '#F5FFFD',
       },
       keyframes: {
         drift: {

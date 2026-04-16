@@ -1,13 +1,29 @@
 import { useEffect, useRef } from "react"
 
 const COLORS = [
-  ["#CFFAFE", "#99F6E4"], // soft aqua
-  ["#99F6E4", "#5EEAD4"], // turquoise
-  ["#5EEAD4", "#2DD4BF"], // main tq
-  ["#2DD4BF", "#14B8A6"], // teal
-  ["#14B8A6", "#0D9488"], // deep teal
-  ["#CCFBF1", "#5EEAD4"], // airy glow
-]
+  // --- Original Aqua / Teal Core ---
+  ["#CFFAFE", "#99F6E4"],
+  ["#99F6E4", "#5EEAD4"],
+  ["#5EEAD4", "#2DD4BF"],
+  ["#2DD4BF", "#14B8A6"],
+  ["#14B8A6", "#0D9488"],
+  ["#CCFBF1", "#5EEAD4"],
+
+  // --- Deep Ocean Variants ---
+  ["#67E8F9", "#0891B2"],
+  ["#22D3EE", "#0E7490"],
+  ["#7DD3FC", "#2563EB"],
+
+  // --- Purple / Magenta Contrast ---
+  ["#DDD6FE", "#8B5CF6"],
+  ["#C4B5FD", "#7C3AED"],
+  ["#F5D0FE", "#D946EF"],
+
+  // --- Neon Energy Colors ---
+  ["#A7F3D0", "#10B981"],
+  ["#BBF7D0", "#22C55E"],
+  ["#D9F99D", "#84CC16"]
+];
 const BALL_COUNT = 12
 
 function makeBall(w, h) {
@@ -17,8 +33,8 @@ function makeBall(w, h) {
     x: Math.random() * w,
     y: Math.random() * h,
     r,
-    vx: (Math.random() - 0.5) * 0.35,
-    vy: (Math.random() - 0.5) * 0.35,
+    vx: (Math.random() - 0.5) * 3,
+    vy: (Math.random() - 0.5) * 3,
     depth: 0.4 + Math.random() * 0.4,
     color: COLORS[Math.floor(Math.random() * COLORS.length)],
   }
@@ -95,8 +111,8 @@ export default function Background() {
         b.y += b.vy
 
         // damping = smooth motion
-        b.vx *= 0.997
-        b.vy *= 0.997
+        b.vx *= 0.999
+        b.vy *= 0.999
 
         if (b.x < b.r || b.x > w - b.r) b.vx *= -1
         if (b.y < b.r || b.y > h - b.r) b.vy *= -1
@@ -115,7 +131,7 @@ export default function Background() {
 
           if (dist < minDist) {
             const angle = Math.atan2(dy, dx)
-            const force = (minDist - dist) * 0.002
+            const force = (minDist - dist) * 0.004
 
             const fx = Math.cos(angle) * force
             const fy = Math.sin(angle) * force
