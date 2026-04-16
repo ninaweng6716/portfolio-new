@@ -1,225 +1,190 @@
 import { useEffect, useRef, useState } from 'react'
+import { init as initHelpers } from './weather/helpers'
+import { Sun } from './weather/Sun'
+import { CartoonyCloud, StormCloud } from './weather/Cloud'
+import { CartoonyRain } from './weather/Rain'
+import { CartoonySnow } from './weather/Snow'
+import { FogWisp, Lightning } from './weather/FogLightning'
+
+// ─── Weather code → condition string ──────────────────────────────────────────
+
+function parseWeatherCode(code) {
+  if ([0, 1].includes(code)) return 'clear'
+  if ([2, 3].includes(code)) return 'clouds'
+  if ([45, 48].includes(code)) return 'fog'
+  if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return 'rain'
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return 'snow'
+  if ([95, 96, 99].includes(code)) return 'thunderstorm'
+  return 'clear'
+}
+
+// ─── Background gradient per condition ────────────────────────────────────────
+
+function buildGradient(ctx, canvas, type) {
+  const g = ctx.createLinearGradient(0, 0, 0, canvas.height)
+  if (type === 'clear') {
+    g.addColorStop(0, '#5ab0f0')
+    g.addColorStop(0.5, '#90d0ff')
+    g.addColorStop(1, '#fde9b4')
+  } else if (type === 'rain') {
+    g.addColorStop(0, '#4a5c6e')
+    g.addColorStop(1, '#2a3c48')
+  } else if (type === 'snow') {
+    g.addColorStop(0, '#c8d8ee')
+    g.addColorStop(1, '#e8eef8')
+  } else if (type === 'thunderstorm') {
+    g.addColorStop(0, '#252c35')
+    g.addColorStop(0.6, '#384050')
+    g.addColorStop(1, '#1a2028')
+  } else if (type === 'fog') {
+    g.addColorStop(0, '#aab4c0')
+    g.addColorStop(1, '#c8d0da')
+  } else {
+    g.addColorStop(0, '#c0ccda')
+    g.addColorStop(1, '#8898aa')
+  }
+  return g
+}
+
+// ─── Ground strip for clear / snow ────────────────────────────────────────────
+
+function drawGround(ctx, canvas, type) {
+  if (type === 'clear') {
+    ctx.fillStyle = '#a8d88a'
+    ctx.fillRect(0, canvas.height - 28, canvas.width, 28)
+    ctx.fillStyle = '#88c870'
+    ctx.fillRect(0, canvas.height - 28, canvas.width, 6)
+  } else if (type === 'snow') {
+    ctx.fillStyle = '#e4edf8'
+    ctx.fillRect(0, canvas.height - 28, canvas.width, 28)
+    ctx.fillStyle = 'white'
+    ctx.beginPath()
+    ctx.moveTo(0, canvas.height - 22)
+    for (let x = 0; x <= canvas.width; x += 28) {
+      ctx.quadraticCurveTo(x + 14, canvas.height - 32, x + 28, canvas.height - 22)
+    }
+    ctx.lineTo(canvas.width, canvas.height)
+    ctx.lineTo(0, canvas.height)
+    ctx.fill()
+  }
+}
+
+// ─── Particle factory ──────────────────────────────────────────────────────────
+
+function buildParticles(type, canvas) {
+  const r = () => Math.random()
+  if (type === 'clear') return [
+    new Sun(canvas),
+    ...Array.from({ length: 4 }, () => new CartoonyCloud(canvas, { opacity: 0.7, scale: 0.6 + r() * 0.3 })),
+  ]
+  if (type === 'clouds') return Array.from({ length: 7 }, () => new CartoonyCloud(canvas))
+  if (type === 'fog') return [
+    ...Array.from({ length: 18 }, () => new FogWisp(canvas)),
+    ...Array.from({ length: 3 }, () => new CartoonyCloud(canvas, { opacity: 0.35, color: 'rgba(210,215,225,0.7)' })),
+  ]
+  if (type === 'rain') return [
+    ...Array.from({ length: 5 }, () => new CartoonyCloud(canvas, { color: '#9aadbe', outline: '#6a8090', opacity: 0.9, y: r() * canvas.height * 0.25 + 20 })),
+    ...Array.from({ length: 80 }, () => new CartoonyRain(canvas)),
+  ]
+  if (type === 'snow') return [
+    ...Array.from({ length: 4 }, () => new CartoonyCloud(canvas, { color: '#e8eef5', outline: '#b8c8d8', opacity: 0.85, y: r() * canvas.height * 0.2 + 20 })),
+    ...Array.from({ length: 55 }, () => new CartoonySnow(canvas)),
+  ]
+  if (type === 'thunderstorm') return [
+    ...Array.from({ length: 6 }, () => new StormCloud(canvas, { y: r() * canvas.height * 0.3 + 10 })),
+    ...Array.from({ length: 70 }, () => new CartoonyRain(canvas)),
+    new Lightning(canvas),
+  ]
+  return []
+}
+
+// ─── Component ─────────────────────────────────────────────────────────────────
 
 export default function Background() {
-    const weatherRef = useRef('clear')
-    const canvasRef = useRef(null)
-    const [weather, setWeather] = useState('clear') // default to clear
+  const weatherRef = useRef('clear')
+  const canvasRef = useRef(null)
+  const [weather, setWeather] = useState('clear')
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchWeather = async () => {
-        try {
-        // 1. Get user location (NO API KEY)
-        const locRes = await fetch(
-            'https://api.bigdatacloud.net/data/reverse-geocode-client'
-        )
+      try {
+        const locRes = await fetch('https://api.bigdatacloud.net/data/reverse-geocode-client')
         const locData = await locRes.json()
-
-        // BigDataCloud gives these directly
         const latitude = locData.latitude || 49.2827
         const longitude = locData.longitude || -123.1207
 
-        // 2. Fetch weather from Open-Meteo
         const weatherRes = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
         )
         const data = await weatherRes.json()
-
-        const weatherCode = data.current_weather.weathercode
-        let condition = 'clear'
-
-        if ([0, 1].includes(weatherCode)) condition = 'clear'
-        else if ([2, 3].includes(weatherCode)) condition = 'clouds'
-        else if ([45, 48].includes(weatherCode)) condition = 'fog'
-        else if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(weatherCode)) condition = 'rain'
-        else if ([71, 73, 75, 77, 85, 86].includes(weatherCode)) condition = 'snow'
-        else if ([95, 96, 99].includes(weatherCode)) condition = 'thunderstorm'
-
-        setWeather(condition)
-        } catch (error) {
-        console.error('Failed to fetch weather:', error)
-        setWeather('fallback')
-        }
+        setWeather(parseWeatherCode(data.current_weather.weathercode))
+      } catch (err) {
+        console.error('Failed to fetch weather:', err)
+        setWeather('clear')
+      }
     }
 
     fetchWeather()
-
-    // update every 30 min
     const interval = setInterval(fetchWeather, 30 * 60 * 1000)
-
     return () => clearInterval(interval)
-    }, [])
+  }, [])
 
-    useEffect(() => {
-    weatherRef.current = weather
-    }, [weather])
+  useEffect(() => { weatherRef.current = weather }, [weather])
 
-    useEffect(() => {
+  useEffect(() => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
 
     let animationId
     let particles = []
-    let currentParticleType = null
+    let currentType = null
+    let time = 0
+
+    // Wire shared helpers to this canvas context
+    initHelpers(ctx, () => time)
 
     const resizeCanvas = () => {
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
     }
-
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
 
-    // -------------------------
-    // Particle classes (same as yours)
-    // -------------------------
+    const GROUND_TYPES = new Set(['clear', 'snow'])
+    const isPrecip = (p) => p instanceof CartoonyRain || p instanceof CartoonySnow
 
-    class RainDrop {
-        constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = -10
-        this.speed = Math.random() * 5 + 5
-        this.length = Math.random() * 20 + 10
-        }
-        update() {
-        this.y += this.speed
-        if (this.y > canvas.height) {
-            this.y = -10
-            this.x = Math.random() * canvas.width
-        }
-        }
-        draw() {
-        ctx.strokeStyle = 'rgba(173, 216, 230, 0.6)'
-        ctx.lineWidth = 2
-        ctx.beginPath()
-        ctx.moveTo(this.x, this.y)
-        ctx.lineTo(this.x, this.y + this.length)
-        ctx.stroke()
-        }
-    }
-
-    class Snowflake {
-        constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = -10
-        this.speed = Math.random() * 2 + 1
-        this.size = Math.random() * 3 + 2
-        this.wind = Math.random() * 0.5 - 0.25
-        }
-        update() {
-        this.y += this.speed
-        this.x += this.wind
-        if (this.y > canvas.height) {
-            this.y = -10
-            this.x = Math.random() * canvas.width
-        }
-        }
-        draw() {
-        ctx.fillStyle = 'rgba(255,255,255,0.8)'
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fill()
-        }
-    }
-
-    class Cloud {
-        constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height * 0.4 + 50
-        this.speed = Math.random() * 0.5 + 0.2
-        this.size = Math.random() * 50 + 30
-        this.opacity = Math.random() * 0.3 + 0.4
-        }
-        update() {
-        this.x += this.speed
-        if (this.x > canvas.width + 100) {
-            this.x = -100
-        }
-        }
-        draw() {
-        ctx.save()
-        ctx.globalAlpha = this.opacity
-        ctx.fillStyle = 'white'
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.restore()
-        }
-    }
-
-    // -------------------------
-    // Particle initializer
-    // -------------------------
-    const initParticles = (type) => {
-        particles = []
-
-        if (type === 'rain') {
-        for (let i = 0; i < 100; i++) particles.push(new RainDrop())
-        } else if (type === 'snow') {
-        for (let i = 0; i < 50; i++) particles.push(new Snowflake())
-        } else if (type === 'clouds' || type === 'fog') {
-        for (let i = 0; i < 12; i++) particles.push(new Cloud())
-        }
-
-        currentParticleType = type
-    }
-
-    // -------------------------
-    // Animation loop
-    // -------------------------
     const animate = () => {
-        const weather = weatherRef.current
+      time += 0.016
+      const w = weatherRef.current
 
-        // only update particles when needed
-        if (weather !== currentParticleType) {
-        initParticles(weather)
-        }
+      if (w !== currentType) {
+        particles = buildParticles(w, canvas)
+        currentType = w
+      }
 
-        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
+      ctx.fillStyle = buildGradient(ctx, canvas, w)
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-        if (weather === 'clear') {
-        gradient.addColorStop(0, '#87CEEB')
-        gradient.addColorStop(1, '#FFF8DC')
-        } else if (weather === 'rain') {
-        gradient.addColorStop(0, '#708090')
-        gradient.addColorStop(1, '#2F4F4F')
-        } else if (weather === 'snow') {
-        gradient.addColorStop(0, '#F0F8FF')
-        gradient.addColorStop(1, '#E6E6FA')
-        } else {
-        gradient.addColorStop(0, '#D3D3D3')
-        gradient.addColorStop(1, '#A9A9A9')
-        }
+      // Render order: background elements → ground → precipitation
+      for (const p of particles) if (!isPrecip(p)) { p.update(); p.draw() }
+      if (GROUND_TYPES.has(w)) drawGround(ctx, canvas, w)
+      for (const p of particles) if (isPrecip(p)) { p.update(); p.draw() }
 
-        ctx.fillStyle = gradient
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-        particles.forEach(p => {
-        p.update()
-        p.draw()
-        })
-
-        animationId = requestAnimationFrame(animate)
+      animationId = requestAnimationFrame(animate)
     }
 
     animate()
 
     return () => {
-        window.removeEventListener('resize', resizeCanvas)
-        cancelAnimationFrame(animationId)
+      window.removeEventListener('resize', resizeCanvas)
+      cancelAnimationFrame(animationId)
     }
-    }, [])
+  }, [])
 
-    return (
-        <canvas
-        ref={canvasRef}
-        style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: -1
-        }}
-        />
-    )
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: -1 }}
+    />
+  )
 }
