@@ -9,7 +9,7 @@ function ProjectCard({ project, delay, onClick }) {
       onClick={() => onClick(project)}>
 
       {/* Thumbnail */}
-      <div className="relative h-[180px] flex items-center justify-center text-[2.5rem] overflow-hidden flex-shrink-0"
+      <div className="relative h-[180px] flex items-center justify-center text-3xl overflow-hidden flex-shrink-0"
         style={{ background: project.bg }}>
         {project.emoji}
         {/* Shine overlay */}
@@ -17,7 +17,7 @@ function ProjectCard({ project, delay, onClick }) {
         {/* Hover reveal */}
         <div className="absolute inset-0 flex items-center justify-center
           bg-tq/80 opacity-0 transition-opacity duration-250 group-hover:opacity-100
-          font-display text-[0.85rem] font-semibold tracking-[0.05em] text-white">
+          font-display text-sm font-semibold tracking-[0.05em] text-white">
           View
         </div>
       </div>
@@ -26,11 +26,11 @@ function ProjectCard({ project, delay, onClick }) {
       <div className="flex flex-col flex-1 px-[1.375rem] py-5">
         <div className="flex flex-wrap gap-1.5 mb-3">
           {project.chips.map((c) => (
-            <span key={c} className="text-[0.68rem] px-2 py-[0.2rem] rounded bg-tq-pale text-tq-dim">{c}</span>
+            <span key={c} className="text-xs px-2 py-[0.2rem] rounded bg-tq-pale text-tq-dim">{c}</span>
           ))}
         </div>
-        <div className="font-display font-bold text-ink text-[1.15rem] tracking-[-0.01em] mb-1.5">{project.name}</div>
-        <p className="text-[0.875rem] text-ink-2 leading-[1.6] font-light flex-1">{project.desc}</p>
+        <div className="font-display font-bold text-ink text-xl tracking-[-0.01em] mb-1.5">{project.name}</div>
+        <p className="text-base text-ink-2 leading-[1.6] font-light flex-1">{project.desc}</p>
       </div>
     </div>
   )
@@ -51,7 +51,7 @@ function ProjectModal({ project, isOpen, onClose }) {
       <div className="relative bg-white rounded-[20px] max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
 
         {/* Header */}
-        <div className="relative h-[200px] flex items-center justify-center text-[4rem] overflow-hidden flex-shrink-0"
+        <div className="relative h-[200px] flex items-center justify-center text-6xl overflow-hidden flex-shrink-0"
           style={{ background: project.bg }}>
           {project.emoji}
           {/* Close button */}
@@ -107,7 +107,7 @@ export default function Projects() {
   return (
     <>
       <section id="projects" className="py-[6.5rem] px-[6vw] bg-bg">
-        <p className="reveal section-eyebrow">Selected work</p>
+        <p className="section-eyebrow-wrapper reveal">Selected work</p>
         <h2 className="reveal font-display font-bold text-ink tracking-[-0.025em] leading-[1.15]
           text-[clamp(1.8rem,3.5vw,2.6rem)] mb-14">
           Things I've built.

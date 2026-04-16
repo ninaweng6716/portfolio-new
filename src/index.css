@@ -16,7 +16,7 @@
 /* ── Shared component classes ────────────────────────────────────────────── */
 @layer components {
   .section-eyebrow {
-    @apply font-display text-[0.7rem] font-semibold tracking-[0.14em] uppercase
+    @apply font-display text-xs font-semibold tracking-[0.14em] uppercase
            text-tq mb-3.5 flex items-center gap-2.5;
   }
   .section-eyebrow::before {
@@ -24,9 +24,13 @@
     @apply block w-6 h-px bg-tq flex-shrink-0;
   }
 
+  .section-eyebrow-wrapper {
+    @apply reveal section-eyebrow text-base py-6;
+  }
+
   .btn {
     @apply inline-flex items-center gap-1.5 px-6 py-2.5 rounded-lg
-           font-display text-[0.85rem] font-semibold tracking-[0.02em]
+           font-display text-sm font-semibold tracking-[0.02em]
            no-underline cursor-pointer transition-all duration-200
            active:scale-95;
   }
