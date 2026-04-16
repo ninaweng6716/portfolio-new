@@ -1,4 +1,5 @@
 import { useReveal } from './hooks/useReveal'
+import Background from './components/Background'
 import Nav      from './components/Nav'
 import Hero     from './components/Hero'
 import About    from './components/About'
@@ -13,6 +14,7 @@ export default function App() {
     <>
       <Nav />
       <main>
+        <Background />
         <Hero />
         <About />
         <Projects />

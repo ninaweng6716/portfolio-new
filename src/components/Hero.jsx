@@ -5,23 +5,27 @@ import { skills } from '../data/skills'
 export default function Hero({ scrollY }) {
   const sectionRef = useRef(null)
 
-  const parallaxOffset = sectionRef.current ? (scrollY - sectionRef.current.offsetTop) * 0.5 : 0
+  const parallaxOffset = sectionRef.current
+    ? (scrollY - sectionRef.current.offsetTop) * 0.5
+    : 0
+
 
   return (
     <section
       ref={sectionRef}
       id="hero"
       className="relative min-h-screen pt-[calc(60px+10rem)] pb-32 px-[6vw]
-        grid grid-cols-1 md:grid-cols-2 items-center gap-16 overflow-hidden"
+        grid grid-cols-1 md:grid-cols-2 items-center gap-16"
       style={{ transform: `translateY(${parallaxOffset}px)` }}
     >
+
       {/* Background glow */}
       <div className="absolute -top-1/5 -right-[10%] w-[640px] h-[640px] rounded-full pointer-events-none
-        bg-[radial-gradient(circle,rgba(32,178,160,0.09)_0%,transparent_65%)] animate-drift" />
+        bg-[radial-gradient(circle,rgba(32,178,160,0.04)_0%,transparent_65%)] animate-drift"
+        style={{ zIndex: 0 }} />
 
       {/* ── Left copy ── */}
-      <div className="hero-left">
-        {/* Available chip */}
+      <div className="hero-left relative" style={{ zIndex: 1 }}>
         {info.available && (
           <div className="inline-flex items-center gap-2 bg-tq-pale text-tq-dim
             font-display text-xs font-semibold tracking-[0.1em] uppercase
@@ -49,12 +53,11 @@ export default function Hero({ scrollY }) {
       </div>
 
       {/* ── Right card ── */}
-      <div className="hidden md:flex justify-end items-center">
+      <div className="hidden md:flex justify-end items-center relative" style={{ zIndex: 1 }}>
         <div className="w-full max-w-[360px] bg-white rounded-2xl border border-rule overflow-hidden
           shadow-[0_20px_60px_rgba(0,0,0,0.06)] transition-all duration-400
           hover:-translate-y-1.5 hover:rotate-[0.4deg] hover:shadow-[0_32px_80px_rgba(0,0,0,0.1)]">
 
-          {/* Card header */}
           <div className="relative h-40 bg-tq-pale flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0"
               style={{ background: 'repeating-linear-gradient(45deg,transparent,transparent 12px,rgba(32,178,160,0.06) 12px,rgba(32,178,160,0.06) 13px)' }} />
@@ -64,7 +67,6 @@ export default function Hero({ scrollY }) {
             </div>
           </div>
 
-          {/* Card body */}
           <div className="px-6 py-5">
             <div className="font-display font-bold text-ink text-lg mb-0.5">{info.name}</div>
             <div className="text-sm text-tq-dim tracking-[0.03em] mb-4">{info.role}</div>
