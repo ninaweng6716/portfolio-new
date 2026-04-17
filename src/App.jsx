@@ -1,41 +1,27 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { useReveal } from './hooks/useReveal'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-import Background from './components/Background'
-import Nav from './components/Nav'
-import Hero from './components/Hero'
-import About from './components/About'
-import Projects from './components/Projects'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+import PortfolioLayout from "./layouts/PortfolioLayout"
+import WeddingLayout from "./layouts/WeddingLayout"
 
-import Wedding from './pages/Wedding'
-
-function Home() {
-  return (
-    <>
-      <Background />
-      <Hero />
-      <About />
-      <Projects />
-      <Contact />
-    </>
-  )
-}
+import Home from "./pages/Home"
+import Wedding from "./pages/Wedding"
 
 export default function App() {
-  useReveal()
-
   return (
     <BrowserRouter>
-      <Nav />
-
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/wedding" element={<Wedding />} />
-      </Routes>
 
-      <Footer />
+        {/* Portfolio */}
+        <Route element={<PortfolioLayout />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+
+        {/* Wedding Single Page Site */}
+        <Route element={<WeddingLayout />}>
+          <Route path="/wedding" element={<Wedding />} />
+        </Route>
+
+      </Routes>
     </BrowserRouter>
   )
 }
