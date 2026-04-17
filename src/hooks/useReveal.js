@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export function useReveal() {
+export default function useReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
