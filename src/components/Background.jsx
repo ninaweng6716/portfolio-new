@@ -49,14 +49,32 @@ export default function Background() {
     const canvas = canvasRef.current
     const ctx = canvas.getContext("2d")
 
-    function resize() {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
+    let lastWidth = 0;
+    let lastHeight = 0;
 
+    function resize() {
+      const vw = window.visualViewport;
+
+      const newWidth = Math.floor(vw?.width || window.innerWidth);
+      const newHeight = Math.floor(vw?.height || window.innerHeight);
+
+      // Ignore tiny mobile scroll height changes
+      const widthChanged = Math.abs(lastWidth - newWidth) > 40;
+      const heightChanged = Math.abs(lastHeight - newHeight) > 120;
+
+      if (!widthChanged && !heightChanged) return;
+
+      lastWidth = newWidth;
+      lastHeight = newHeight;
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      // ONLY recreate on real layout change
       ballsRef.current = Array.from(
         { length: BALL_COUNT },
-        () => makeBall(canvas.width, canvas.height)
-      )
+        () => makeBall(newWidth, newHeight)
+      );
     }
 
     function drawBall(ctx, b) {
@@ -172,11 +190,24 @@ export default function Background() {
     }
 
     resize()
-    window.addEventListener("resize", resize)
+    window.addEventListener("resize", resize);
+    window.visualViewport?.addEventListener("resize", resize);    rafRef.current = requestAnimationFrame(loop)
+
+    function handleVisibility() {
+      if (document.hidden) {
+        cancelAnimationFrame(rafRef.current)
+      } else {
+        rafRef.current = requestAnimationFrame(loop)
+      }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibility)
     rafRef.current = requestAnimationFrame(loop)
 
     return () => {
       window.removeEventListener("resize", resize)
+      window.visualViewport?.removeEventListener("resize", resize)
+      document.removeEventListener("visibilitychange", handleVisibility)
       cancelAnimationFrame(rafRef.current)
     }
   }, [])
