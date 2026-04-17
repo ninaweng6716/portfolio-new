@@ -21,8 +21,8 @@ function GalleryPlaceholder({ label, featured = false }) {
       >
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
           <span
-            className="italic text-[#c9a0a0] opacity-50 text-[1.6rem]"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            className="font-serif italic text-[#c9a0a0] opacity-50"
+            style={{ fontSize: "clamp(1.2rem, 3vw, 1.6rem)" }}
           >
             ✿
           </span>
@@ -39,7 +39,10 @@ export default function GallerySection() {
   return (
     <section id="gallery" className="bg-[#faf7f2]">
       <div className="max-w-3xl mx-auto px-8 py-20">
-        <SectionHeader label="Memories" heading={<>Our <em className="italic text-[#9e7b7b]">Gallery</em></>} />
+        <SectionHeader
+          label="Memories"
+          heading={<>Our <em className="italic text-[#9e7b7b]">Gallery</em></>}
+        />
         <div className="grid grid-cols-3 gap-3 mt-4 max-[480px]:grid-cols-2">
           {PHOTOS.map((label, i) => (
             <GalleryPlaceholder key={label} label={label} featured={i === 0} />

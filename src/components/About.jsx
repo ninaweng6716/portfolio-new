@@ -2,13 +2,10 @@ import { useRef } from 'react'
 import { info } from '../data/info'
 import { about } from '../data/about'
 
-export default function About({ scrollY }) {
-  const sectionRef = useRef(null)
-
-  const parallaxOffset = sectionRef.current ? (scrollY - sectionRef.current.offsetTop) * 0.3 : 0
+export default function About() {
 
   return (
-    <section ref={sectionRef} id="about" className="py-[12rem] px-[6vw] bg-white min-h-screen flex items-center" style={{ transform: `translateY(${parallaxOffset}px)` }}>
+    <section id="about" className="py-[12rem] px-[6vw] min-h-screen flex items-center">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-20 items-center">
 
         {/* Visual placeholder (swap for <img> when you have a photo) */}

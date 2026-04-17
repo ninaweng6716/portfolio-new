@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import PortfolioLayout from "./layouts/PortfolioLayout"
-import WeddingLayout from "./layouts/WeddingLayout"
+import WeddingLayout from "./wedding/layouts/WeddingLayout"
 
 import Home from "./pages/Home"
-import Wedding from "./pages/Wedding"
+import Wedding from "./wedding/pages/Wedding"
 
 export default function App() {
   return (

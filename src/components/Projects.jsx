@@ -106,7 +106,7 @@ export default function Projects() {
 
   return (
     <>
-      <section id="projects" className="py-[6.5rem] px-[6vw] bg-bg relative">
+      <section id="projects" className="py-[6.5rem] px-[6vw] relative">
         <p className="section-eyebrow-wrapper reveal">Selected work</p>
         <h2 className="reveal font-display font-bold text-ink tracking-[-0.025em] leading-[1.15]
           text-[clamp(1.8rem,3.5vw,2.6rem)] mb-14">

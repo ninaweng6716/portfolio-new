@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
+// import { FONTS } from "../components/WeddingPrimitives"
+
 
 const NAV_ITEMS = [
   { label: "Details",  href: "#details"  },
-  { label: "Schedule", href: "#schedule" },
+  // { label: "Schedule", href: "#schedule" },
   { label: "Gallery",  href: "#gallery"  },
 ]
 
@@ -48,8 +50,7 @@ export default function WeddingNav() {
           {/* Monogram */}
           <a
             href="#hero"
-            className="font-light text-[#3d2c2c] tracking-wide no-underline text-[1.4rem] leading-none"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            className="font-weddingBody font-light text-[#3d2c2c] tracking-wide no-underline text-[1.4rem] leading-none"
             onClick={e => scrollToSection(e, "#hero")}
           >
             N <span className="italic text-[#c9a96e]">&amp;</span> J
@@ -62,7 +63,7 @@ export default function WeddingNav() {
                 <a
                   href={href}
                   onClick={e => scrollToSection(e, href)}
-                  className={`text-[0.65rem] tracking-[0.3em] uppercase no-underline transition-colors duration-200 pb-0.5 border-b ${
+                  className={`font-weddingBody text-[0.65rem] tracking-[0.3em] uppercase no-underline transition-colors duration-200 pb-0.5 border-b ${
                     active === href.replace("#", "")
                       ? "text-[#3d2c2c] border-[#c9a96e]"
                       : "text-[#8a6e6e] border-transparent hover:text-[#3d2c2c] hover:border-[#c9a96e]"
@@ -76,7 +77,7 @@ export default function WeddingNav() {
               <a
                 href="#rsvp"
                 onClick={e => scrollToSection(e, "#rsvp")}
-                className="text-[0.65rem] tracking-[0.25em] uppercase no-underline border border-[#c9a96e] text-[#c9a96e] px-4 py-1.5 transition-all duration-200 hover:bg-[#c9a96e] hover:text-[#faf7f2]"
+                className="font-weddingBody text-[0.65rem] tracking-[0.25em] uppercase no-underline border border-[#c9a96e] text-[#c9a96e] px-4 py-1.5 transition-all duration-200 hover:bg-[#c9a96e] hover:text-[#faf7f2]"
               >
                 RSVP
               </a>
@@ -107,8 +108,7 @@ export default function WeddingNav() {
             key={href}
             href={href}
             onClick={e => scrollToSection(e, href, closeMenu)}
-            className="font-light text-[#3d2c2c] no-underline tracking-wide text-3xl transition-colors duration-200 hover:text-[#c9a96e]"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            className="font-weddingBody font-light text-[#3d2c2c] no-underline tracking-wide text-3xl transition-colors duration-200 hover:text-[#c9a96e]"
           >
             {label}
           </a>
@@ -117,8 +117,7 @@ export default function WeddingNav() {
         <a
           href="#rsvp"
           onClick={e => scrollToSection(e, "#rsvp", closeMenu)}
-          className="font-light text-3xl no-underline text-[#c9a96e] hover:text-[#3d2c2c] transition-colors duration-200"
-          style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          className="font-weddingBody text-3xl no-underline text-[#c9a96e] hover:text-[#3d2c2c] transition-colors duration-200"
         >
           RSVP
         </a>

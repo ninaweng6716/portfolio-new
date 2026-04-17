@@ -6,6 +6,8 @@ export default {
       fontFamily: {
         display: ['Syne', 'sans-serif'],
         body: ['Lato', 'sans-serif'],
+        weddingDisplay: ['Cormorant Garamond', 'serif'],
+        weddingBody: ['EB Garamond', 'serif'],
       },
       colors: {
         tq: {

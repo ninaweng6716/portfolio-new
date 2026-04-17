@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
-import WeddingNav from "../wedding/components/WeddingNav"
-import WeddingFooter from "../wedding/components/WeddingFooter"
+import WeddingNav from "../components/WeddingNav"
+import WeddingFooter from "../components/WeddingFooter"
 
 export default function WeddingLayout() {
   return (

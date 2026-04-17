@@ -2,21 +2,12 @@ import { useEffect, useRef } from 'react'
 import { info } from '../data/info'
 import { skills } from '../data/skills'
 
-export default function Hero({ scrollY }) {
-  const sectionRef = useRef(null)
-
-  const parallaxOffset = sectionRef.current
-    ? (scrollY - sectionRef.current.offsetTop) * 0.5
-    : 0
-
-
+export default function Hero() {
   return (
     <section
-      ref={sectionRef}
       id="hero"
       className="relative min-h-screen pt-[calc(60px+10rem)] pb-32 px-[6vw]
         grid grid-cols-1 md:grid-cols-2 items-center gap-16"
-      style={{ transform: `translateY(${parallaxOffset}px)` }}
     >
 
       {/* Background glow */}
@@ -36,7 +27,7 @@ export default function Hero({ scrollY }) {
         )}
 
         <h1 className="font-display font-bold text-ink leading-[1.05] tracking-[-0.03em]
-          text-7xl mb-5">
+          text-5xl mb-5">
           Front-end developer.<br />
           <span className="text-tq">Detail-first.</span>
         </h1>
