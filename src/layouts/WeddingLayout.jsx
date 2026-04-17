@@ -4,7 +4,10 @@ import WeddingFooter from "../wedding/WeddingFooter"
 
 export default function WeddingLayout() {
   return (
-    <div className="wedding-site">
+    <div
+      className="wedding-site"
+      style={{ fontFamily: 'Cormorant Garamond, serif' }}
+    >
       <WeddingNav />
 
       <main>

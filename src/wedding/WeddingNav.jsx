@@ -1,205 +1,15 @@
 import { useState, useEffect } from "react"
 
-const navStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
-
-  :root {
-    --cream: #faf7f2;
-    --blush: #f0e6de;
-    --gold: #c9a96e;
-    --gold-light: #e8d8b4;
-    --deep: #3d2c2c;
-    --text: #5a3e3e;
-    --text-light: #8a6e6e;
-  }
-
-  .wnav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    transition: background 0.35s, padding 0.35s, box-shadow 0.35s;
-    padding: 1.5rem 2rem;
-    background: transparent;
-  }
-
-  .wnav.scrolled {
-    background: rgba(250, 247, 242, 0.96);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 0.9rem 2rem;
-    box-shadow: 0 1px 0 var(--gold-light);
-  }
-
-  .wnav-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .wnav-monogram {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--deep);
-    letter-spacing: 0.05em;
-    line-height: 1;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .wnav-monogram span {
-    color: var(--gold);
-    font-style: italic;
-  }
-
-  .wnav-links {
-    display: flex;
-    align-items: center;
-    gap: 2.25rem;
-    list-style: none;
-  }
-
-  .wnav-links a {
-    font-family: 'Jost', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 400;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--text-light);
-    text-decoration: none;
-    position: relative;
-    padding-bottom: 2px;
-    transition: color 0.2s;
-  }
-
-  .wnav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transition: transform 0.25s ease;
-    transform-origin: left;
-  }
-
-  .wnav-links a:hover,
-  .wnav-links a.active {
-    color: var(--deep);
-  }
-
-  .wnav-links a.active::after,
-  .wnav-links a:hover::after {
-    transform: scaleX(1);
-  }
-
-  /* RSVP pill */
-  .wnav-links a.wnav-rsvp {
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    padding: 0.45rem 1.1rem 0.4rem;
-    letter-spacing: 0.25em;
-    transition: background 0.25s, color 0.25s;
-  }
-
-  .wnav-links a.wnav-rsvp::after { display: none; }
-
-  .wnav-links a.wnav-rsvp:hover {
-    background: var(--gold);
-    color: var(--cream);
-  }
-
-  /* Hamburger */
-  .wnav-hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 28px;
-    height: 28px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .wnav-hamburger span {
-    display: block;
-    height: 1px;
-    background: var(--deep);
-    transition: transform 0.25s, opacity 0.25s;
-    transform-origin: center;
-  }
-
-  .wnav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-  .wnav-hamburger.open span:nth-child(2) { opacity: 0; }
-  .wnav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-  /* Mobile drawer */
-  .wnav-drawer {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--cream);
-    z-index: 99;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-
-  .wnav-drawer.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .wnav-drawer a {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--deep);
-    text-decoration: none;
-    letter-spacing: 0.08em;
-    transition: color 0.2s;
-  }
-
-  .wnav-drawer a:hover { color: var(--gold); }
-
-  .wnav-drawer-divider {
-    width: 40px;
-    height: 1px;
-    background: var(--gold-light);
-  }
-
-  @media (max-width: 640px) {
-    .wnav-links { display: none; }
-    .wnav-hamburger { display: flex; }
-    .wnav-drawer { display: flex; }
-  }
-`
-
 const navItems = [
-  { label: "Details",   href: "#details"   },
-  { label: "Schedule",  href: "#schedule"  },
-  { label: "Gallery",   href: "#gallery"   },
+  { label: "Details", href: "#details" },
+  { label: "Schedule", href: "#schedule" },
+  { label: "Gallery", href: "#gallery" },
 ]
 
 export default function WeddingNav() {
-  const [scrolled, setScrolled]   = useState(false)
-  const [active,   setActive]     = useState("")
-  const [menuOpen, setMenuOpen]   = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState("")
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     function onScroll() {
@@ -207,10 +17,12 @@ export default function WeddingNav() {
 
       const sections = ["story", "details", "schedule", "gallery", "rsvp"]
       let current = ""
+
       for (const id of sections) {
         const el = document.getElementById(id)
         if (el && window.scrollY >= el.offsetTop - 120) current = id
       }
+
       setActive(current)
     }
 
@@ -221,58 +33,162 @@ export default function WeddingNav() {
   function scrollTo(e, href) {
     e.preventDefault()
     setMenuOpen(false)
-    const id  = href.replace("#", "")
-    const el  = document.getElementById(id)
+
+    const id = href.replace("#", "")
+    const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
     <>
-      <style>{navStyles}</style>
+      {/* NAVBAR */}
+      <nav
+        className={`
+          fixed top-0 left-0 right-0 z-[100]
+          transition-all duration-300
+          ${scrolled
+            ? "bg-[#faf7f2]/95 backdrop-blur-md shadow-[0_1px_0_#e8d8b4] py-3"
+            : "bg-transparent py-6"}
+          px-8
+        `}
+      >
+        <div className="max-w-[1000px] mx-auto flex items-center justify-between">
 
-      <nav className={`wnav${scrolled ? " scrolled" : ""}`}>
-        <div className="wnav-inner">
-
-          <a href="#hero" className="wnav-monogram" onClick={e => scrollTo(e, "#hero")}>
-            E <span>&amp;</span> J
+          {/* MONOGRAM */}
+          <a
+            href="#hero"
+            onClick={e => scrollTo(e, "#hero")}
+            className="
+              font-serif text-[1.4rem] font-light tracking-[0.05em]
+              text-[#3d2c2c]
+            "
+          >
+            E <span className="text-[#c9a96e] italic">&amp;</span> J
           </a>
 
-          <ul className="wnav-links">
-            {navItems.map(({ label, href }) => (
-              <li key={href}>
-                <a
-                  href={href}
-                  className={active === href.replace("#", "") ? "active" : ""}
-                  onClick={e => scrollTo(e, href)}
-                >
-                  {label}
-                </a>
-              </li>
-            ))}
+          {/* DESKTOP LINKS */}
+          <ul className="hidden sm:flex items-center gap-9">
+            {navItems.map(({ label, href }) => {
+              const isActive = active === href.replace("#", "")
+              return (
+                <li key={href}>
+                  <a
+                    href={href}
+                    onClick={e => scrollTo(e, href)}
+                    className={`
+                      relative text-[0.65rem]
+                      tracking-[0.3em] uppercase
+                      transition-colors duration-200
+                      pb-[2px]
+                      ${
+                        isActive
+                          ? "text-[#3d2c2c]"
+                          : "text-[#8a6e6e]"
+                      }
+                      hover:text-[#3d2c2c]
+                      after:absolute after:left-0 after:right-0 after:bottom-0
+                      after:h-[1px] after:bg-[#c9a96e]
+                      after:origin-left after:transition-transform
+                      ${isActive
+                        ? "after:scale-x-100"
+                        : "after:scale-x-0 hover:after:scale-x-100"}
+                    `}
+                  >
+                    {label}
+                  </a>
+                </li>
+              )
+            })}
+
+            {/* RSVP BUTTON */}
             <li>
-              <a href="#rsvp" className="wnav-rsvp" onClick={e => scrollTo(e, "#rsvp")}>
+              <a
+                href="#rsvp"
+                onClick={e => scrollTo(e, "#rsvp")}
+                className="
+                  border border-[#c9a96e]
+                  text-[#c9a96e]
+                  px-4 py-[6px]
+                  text-[0.65rem]
+                  tracking-[0.25em]
+                  uppercase
+                  transition-all duration-200
+                  hover:bg-[#c9a96e]
+                  hover:text-[#faf7f2]
+                "
+              >
                 RSVP
               </a>
             </li>
           </ul>
 
+          {/* HAMBURGER */}
           <button
-            className={`wnav-hamburger${menuOpen ? " open" : ""}`}
-            onClick={() => setMenuOpen(v => !v)}
             aria-label="Toggle menu"
+            onClick={() => setMenuOpen(v => !v)}
+            className="flex sm:hidden flex-col justify-center gap-[5px] w-7 h-7"
           >
-            <span /><span /><span />
+            <span
+              className={`
+                h-[1px] bg-[#3d2c2c] transition-all
+                ${menuOpen ? "translate-y-[6px] rotate-45" : ""}
+              `}
+            />
+            <span
+              className={`
+                h-[1px] bg-[#3d2c2c] transition-all
+                ${menuOpen ? "opacity-0" : ""}
+              `}
+            />
+            <span
+              className={`
+                h-[1px] bg-[#3d2c2c] transition-all
+                ${menuOpen ? "-translate-y-[6px] -rotate-45" : ""}
+              `}
+            />
           </button>
         </div>
       </nav>
 
-      {/* Mobile fullscreen drawer */}
-      <div className={`wnav-drawer${menuOpen ? " open" : ""}`}>
+      {/* MOBILE DRAWER */}
+      <div
+        className={`
+          fixed inset-0 z-[99]
+          flex flex-col items-center justify-center gap-10
+          bg-[#faf7f2]
+          transition-opacity duration-300
+          ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+          sm:hidden
+        `}
+      >
         {navItems.map(({ label, href }) => (
-          <a key={href} href={href} onClick={e => scrollTo(e, href)}>{label}</a>
+          <a
+            key={href}
+            href={href}
+            onClick={e => scrollTo(e, href)}
+            className="
+              font-serif text-3xl font-light
+              tracking-[0.08em]
+              text-[#3d2c2c]
+              hover:text-[#c9a96e]
+              transition-colors
+            "
+          >
+            {label}
+          </a>
         ))}
-        <div className="wnav-drawer-divider" />
-        <a href="#rsvp" onClick={e => scrollTo(e, "#rsvp")} style={{ color: "var(--gold)" }}>
+
+        <div className="w-10 h-px bg-[#e8d8b4]" />
+
+        <a
+          href="#rsvp"
+          onClick={e => scrollTo(e, "#rsvp")}
+          className="
+            font-serif text-3xl font-light
+            tracking-[0.08em]
+            text-[#c9a96e]
+          "
+        >
           RSVP
         </a>
       </div>
