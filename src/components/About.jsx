@@ -5,7 +5,7 @@ import { about } from '../data/about'
 export default function About() {
 
   return (
-    <section id="about" className="py-[12rem] px-[6vw] min-min-h-dvh flex items-center">
+    <section id="about" className="py-[12rem] px-[6vw] min-h-dvh flex items-center">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-20 items-center">
 
         {/* Visual placeholder (swap for <img> when you have a photo) */}

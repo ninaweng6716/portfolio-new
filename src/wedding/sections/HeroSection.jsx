@@ -10,7 +10,7 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="min-min-h-dvh flex flex-col items-center justify-center text-center relative bg-[#faf7f2] px-8 py-24 overflow-hidden"
+      className="min-h-dvh flex flex-col items-center justify-center text-center relative bg-[#faf7f2] px-8 py-24 overflow-hidden"
     >
 
       {/* Corner frames */}
