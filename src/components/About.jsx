@@ -5,18 +5,13 @@ import { about } from '../data/about'
 export default function About() {
 
   return (
-    <section id="about" className="py-[12rem] px-[6vw] min-h-screen flex items-center">
+    <section id="about" className="py-[12rem] px-[6vw] min-min-h-dvh flex items-center">
       <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-20 items-center">
 
         {/* Visual placeholder (swap for <img> when you have a photo) */}
         <div className="reveal relative aspect-square rounded-2xl bg-tq-pale flex flex-col items-center justify-center gap-4
           overflow-hidden transition-transform duration-400 hover:scale-[1.02]">
-          <div className="absolute inset-0"
-            style={{ background: 'repeating-linear-gradient(135deg,transparent,transparent 20px,rgba(32,178,160,0.05) 20px,rgba(32,178,160,0.05) 21px)' }} />
-          <div className="relative z-10 w-20 h-20 rounded-full bg-tq/15 flex items-center justify-center text-2xl">
-            🧑‍💻
-          </div>
-          <p className="relative z-10 text-sm text-tq-dim">Your photo here</p>
+          <img src={info.coolPic} alt={info.name} className='w-full h-full object-cover'/>
           <div className="absolute bottom-5 right-5 z-20 bg-white rounded-[10px] px-3.5 py-2
             shadow-[0_8px_24px_rgba(0,0,0,0.1)] font-display text-xs font-semibold text-ink
             flex items-center gap-1.5 animate-float">

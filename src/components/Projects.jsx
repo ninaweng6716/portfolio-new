@@ -81,7 +81,6 @@ function ProjectModal({ project, isOpen, onClose }) {
             >
               See Demo <span>→</span>
             </a>
-            <span className="text-ink-3 font-medium">{project.year}</span>
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@
            active:scale-95;
   }
   .btn-solid {
-    @apply btn bg-tq text-white border border-tq
+    @apply btn bg-tq text-white border text-base border-tq
            hover:bg-tq-dim hover:border-tq-dim hover:-translate-y-0.5
            hover:shadow-[0_8px_28px_rgba(32,178,160,0.18)];
   }

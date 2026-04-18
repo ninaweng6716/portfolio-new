@@ -1,199 +1,161 @@
 import { useEffect, useRef } from "react"
 
 const COLORS = [
-  // --- Original Aqua / Teal Core ---
+  // Aqua / Teal
   ["#CFFAFE", "#99F6E4"],
   ["#99F6E4", "#5EEAD4"],
   ["#5EEAD4", "#2DD4BF"],
   ["#2DD4BF", "#14B8A6"],
   ["#14B8A6", "#0D9488"],
   ["#CCFBF1", "#5EEAD4"],
-
-  // --- Deep Ocean Variants ---
+  // Deep Ocean
   ["#67E8F9", "#0891B2"],
   ["#22D3EE", "#0E7490"],
   ["#7DD3FC", "#2563EB"],
-
-  // --- Purple / Magenta Contrast ---
+  // Purple / Magenta
   ["#DDD6FE", "#8B5CF6"],
   ["#C4B5FD", "#7C3AED"],
   ["#F5D0FE", "#D946EF"],
-
-  // --- Neon Energy Colors ---
+  // Neon
   ["#A7F3D0", "#10B981"],
   ["#BBF7D0", "#22C55E"],
-  ["#D9F99D", "#84CC16"]
-];
+  ["#D9F99D", "#84CC16"],
+]
+
 const BALL_COUNT = 12
+const BLUR_PX    = 20
+const DAMPING    = 0.999
+const REPULSION  = 0.004
+const OVERLAP    = 0.6
 
-function makeBall(w, h) {
-  const r = 40 + Math.random() * 70
-
+function randomBall(w, h) {
   return {
-    x: Math.random() * w,
-    y: Math.random() * h,
-    r,
-    vx: (Math.random() - 0.5) * 3,
-    vy: (Math.random() - 0.5) * 3,
-    depth: 0.4 + Math.random() * 0.4,
+    x:     Math.random() * w,
+    y:     Math.random() * h,
+    r:     40 + Math.random() * 70,
+    vx:    (Math.random() - 0.5) * 3,
+    vy:    (Math.random() - 0.5) * 3,
     color: COLORS[Math.floor(Math.random() * COLORS.length)],
+  }
+}
+
+function drawBall(ctx, { x, y, r, color }) {
+  const inner = ctx.createRadialGradient(x, y, 0, x, y, r)
+  inner.addColorStop(0,   color[0] + "CC")
+  inner.addColorStop(0.4, color[0] + "88")
+  inner.addColorStop(1,   color[1] + "00")
+  ctx.globalAlpha = 0.9
+  ctx.beginPath()
+  ctx.arc(x, y, r, 0, Math.PI * 2)
+  ctx.fillStyle = inner
+  ctx.fill()
+
+  const halo = ctx.createRadialGradient(x, y, r * 0.4, x, y, r * 2.4)
+  halo.addColorStop(0, color[0] + "44")
+  halo.addColorStop(1, color[1] + "00")
+  ctx.globalAlpha = 0.6
+  ctx.beginPath()
+  ctx.arc(x, y, r * 2.4, 0, Math.PI * 2)
+  ctx.fillStyle = halo
+  ctx.fill()
+
+  ctx.globalAlpha = 1
+}
+
+function stepPhysics(balls, w, h) {
+  for (const b of balls) {
+    b.x  += b.vx
+    b.y  += b.vy
+    b.vx *= DAMPING
+    b.vy *= DAMPING
+    if (b.x < b.r || b.x > w - b.r) b.vx *= -1
+    if (b.y < b.r || b.y > h - b.r) b.vy *= -1
+  }
+
+  for (let i = 0; i < balls.length; i++) {
+    for (let j = i + 1; j < balls.length; j++) {
+      const a = balls[i], b = balls[j]
+      const dx = b.x - a.x, dy = b.y - a.y
+      const d   = Math.hypot(dx, dy)
+      const min = (a.r + b.r) * OVERLAP
+      if (d < min) {
+        const angle = Math.atan2(dy, dx)
+        const f  = (min - d) * REPULSION
+        const fx = Math.cos(angle) * f
+        const fy = Math.sin(angle) * f
+        a.vx -= fx;  a.vy -= fy
+        b.vx += fx;  b.vy += fy
+      }
+    }
   }
 }
 
 export default function Background() {
   const canvasRef = useRef(null)
-  const ballsRef = useRef([])
-  const rafRef = useRef()
+  const stateRef  = useRef({ balls: [], w: 0, h: 0 })
+  const rafRef    = useRef()
 
   useEffect(() => {
     const canvas = canvasRef.current
-    const ctx = canvas.getContext("2d")
+    const ctx    = canvas.getContext("2d")
+    const state  = stateRef.current
 
-    let lastWidth = 0;
-    let lastHeight = 0;
-
-    function resize() {
-      const vw = window.visualViewport;
-
-      const newWidth = Math.floor(vw?.width || window.innerWidth);
-      const newHeight = Math.floor(vw?.height || window.innerHeight);
-
-      // Ignore tiny mobile scroll height changes
-      const widthChanged = Math.abs(lastWidth - newWidth) > 40;
-      const heightChanged = Math.abs(lastHeight - newHeight) > 120;
-
-      if (!widthChanged && !heightChanged) return;
-
-      lastWidth = newWidth;
-      lastHeight = newHeight;
-
-      canvas.width = newWidth;
-      canvas.height = newHeight;
-
-      // ONLY recreate on real layout change
-      ballsRef.current = Array.from(
-        { length: BALL_COUNT },
-        () => makeBall(newWidth, newHeight)
-      );
+    function getViewport() {
+      const vv = window.visualViewport
+      return {
+        w: Math.floor(vv?.width  ?? window.innerWidth),
+        h: Math.floor(vv?.height ?? window.innerHeight),
+      }
     }
 
-    function drawBall(ctx, b) {
-    // ultra soft inner light
-    const inner = ctx.createRadialGradient(
-        b.x,
-        b.y,
-        0,
-        b.x,
-        b.y,
-        b.r
-    )
-
-    inner.addColorStop(0, b.color[0] + "CC")
-    inner.addColorStop(0.4, b.color[0] + "88")
-    inner.addColorStop(1, b.color[1] + "00")
-
-    ctx.globalAlpha = 0.9
-    ctx.beginPath()
-    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2)
-    ctx.fillStyle = inner
-    ctx.fill()
-
-    // atmospheric glow layer
-    const glow = ctx.createRadialGradient(
-        b.x,
-        b.y,
-        b.r * 0.4,
-        b.x,
-        b.y,
-        b.r * 2.4
-    )
-
-    glow.addColorStop(0, b.color[0] + "44")
-    glow.addColorStop(1, b.color[1] + "00")
-
-    ctx.globalAlpha = 0.6
-    ctx.beginPath()
-    ctx.arc(b.x, b.y, b.r * 2.4, 0, Math.PI * 2)
-    ctx.fillStyle = glow
-    ctx.fill()
-
-    ctx.globalAlpha = 1
+    function init() {
+      const { w, h } = getViewport()
+      canvas.width  = w
+      canvas.height = h
+      state.w       = w
+      state.h       = h
+      state.balls   = Array.from({ length: BALL_COUNT }, () => randomBall(w, h))
     }
 
-    function physics(w, h) {
-      const balls = ballsRef.current
+    // Separated from loop() so onResize can call it immediately after
+    // resizing the canvas — prevents the blank-frame flash
+    function draw() {
+      const { w, h, balls } = state
+      ctx.clearRect(0, 0, w, h)
+      ctx.filter = `blur(${BLUR_PX}px)`
+      ctx.globalCompositeOperation = "screen"
+      ctx.fillStyle = "rgba(240,255,255,0.04)"
+      ctx.fillRect(0, 0, w, h)
+      for (const b of balls) drawBall(ctx, b)
+      ctx.globalCompositeOperation = "source-over"
+      ctx.filter = "none"
+    }
 
-      // movement + wall bounce
-      for (const b of balls) {
-        b.x += b.vx
-        b.y += b.vy
+    function onResize() {
+      const { w, h } = getViewport()
+      if (w === state.w && h === state.h) return
 
-        // damping = smooth motion
-        b.vx *= 0.999
-        b.vy *= 0.999
+      canvas.width  = w
+      canvas.height = h
+      state.w       = w
+      state.h       = h
 
-        if (b.x < b.r || b.x > w - b.r) b.vx *= -1
-        if (b.y < b.r || b.y > h - b.r) b.vy *= -1
+      for (const b of state.balls) {
+        b.x = Math.min(Math.max(b.r, b.x), w - b.r)
+        b.y = Math.min(Math.max(b.r, b.y), h - b.r)
       }
 
-      // soft ball interaction
-      for (let i = 0; i < balls.length; i++) {
-        for (let j = i + 1; j < balls.length; j++) {
-          const a = balls[i]
-          const b = balls[j]
-
-          const dx = b.x - a.x
-          const dy = b.y - a.y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          const minDist = (a.r + b.r) * 0.6
-
-          if (dist < minDist) {
-            const angle = Math.atan2(dy, dx)
-            const force = (minDist - dist) * 0.004
-
-            const fx = Math.cos(angle) * force
-            const fy = Math.sin(angle) * force
-
-            a.vx -= fx
-            a.vy -= fy
-            b.vx += fx
-            b.vy += fy
-          }
-        }
-      }
+      // draw immediately so the cleared buffer is never shown
+      draw()
     }
 
     function loop() {
-      const w = canvas.width
-      const h = canvas.height
-
-      ctx.clearRect(0, 0, w, h)
-
-      physics(w, h)
-
-      ctx.filter = "blur(20px)"
-
-      ctx.globalCompositeOperation = "screen"
-
-      ctx.fillStyle = "rgba(240, 255, 255, 0.04)"
-        ctx.fillRect(0, 0, w, h)
-
-      for (const b of ballsRef.current) {
-        drawBall(ctx, b)
-      }
-
-      ctx.globalCompositeOperation = "source-over"
-
-      ctx.filter = "none"
-
+      stepPhysics(state.balls, state.w, state.h)
+      draw()
       rafRef.current = requestAnimationFrame(loop)
     }
 
-    resize()
-    window.addEventListener("resize", resize);
-    window.visualViewport?.addEventListener("resize", resize);    rafRef.current = requestAnimationFrame(loop)
-
-    function handleVisibility() {
+    function onVisibility() {
       if (document.hidden) {
         cancelAnimationFrame(rafRef.current)
       } else {
@@ -201,13 +163,16 @@ export default function Background() {
       }
     }
 
-    document.addEventListener("visibilitychange", handleVisibility)
+    init()
+    window.addEventListener("resize", onResize)
+    window.visualViewport?.addEventListener("resize", onResize)
+    document.addEventListener("visibilitychange", onVisibility)
     rafRef.current = requestAnimationFrame(loop)
 
     return () => {
-      window.removeEventListener("resize", resize)
-      window.visualViewport?.removeEventListener("resize", resize)
-      document.removeEventListener("visibilitychange", handleVisibility)
+      window.removeEventListener("resize", onResize)
+      window.visualViewport?.removeEventListener("resize", onResize)
+      document.removeEventListener("visibilitychange", onVisibility)
       cancelAnimationFrame(rafRef.current)
     }
   }, [])
@@ -216,12 +181,12 @@ export default function Background() {
     <canvas
       ref={canvasRef}
       style={{
-        position: "fixed",
-        inset: 0,
-        width: "100%",
-        height: "100%",
+        position:      "fixed",
+        inset:         0,
+        width:         "100vw",
+        height:        "100dvh",
         pointerEvents: "none",
-        zIndex: 0,
+        zIndex:        0,
       }}
     />
   )
