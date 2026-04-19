@@ -1,5 +1,6 @@
 import { info } from '../data/info'
 import { skills } from '../data/skills'
+import WeatherGreeting from './WeatherGreetings'
 
 export default function Hero() {
   return (
@@ -47,6 +48,10 @@ export default function Hero() {
           <a href="#projects" className="btn-solid">See my work</a>
           <a href="#contact" className="btn-outline">Let's talk</a>
         </div>
+
+        <div className="mt-5 section-text">
+          <WeatherGreeting />
+        </div>
       </div>
 
       {/* ── Right card — desktop only ── */}
@@ -74,6 +79,8 @@ export default function Hero() {
           </div>
         </div>
       </div>
+
+      
 
     </section>
   )
