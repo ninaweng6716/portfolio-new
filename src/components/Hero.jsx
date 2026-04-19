@@ -1,8 +1,11 @@
 import { info } from '../data/info'
 import { skills } from '../data/skills'
+import { useOutletContext } from 'react-router-dom'
 import WeatherGreeting from './WeatherGreetings'
 
 export default function Hero() {
+  const { weather } = useOutletContext()
+
   return (
     <section
       id="hero"
@@ -50,7 +53,7 @@ export default function Hero() {
         </div>
 
         <div className="mt-5 section-text">
-          <WeatherGreeting />
+          <WeatherGreeting weather={weather} />
         </div>
       </div>
 
