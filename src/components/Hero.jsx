@@ -9,10 +9,6 @@ export default function Hero() {
         grid grid-cols-1 md:grid-cols-2 items-center gap-16"
     >
 
-      {/* Background glow */}
-      <div className="absolute -top-1/5 -right-[10%] w-[640px] h-[640px] rounded-full pointer-events-none
-        bg-[radial-gradient(circle,rgba(32,178,160,0.04)_0%,transparent_65%)] animate-drift z-0" />
-
       {/* ── Left copy ── */}
       <div className="hero-left relative z-1">
 
@@ -42,12 +38,12 @@ export default function Hero() {
           <span className="text-tq">Detail-first.</span>
         </h1>
 
-        <p className="text-xl font-light text-ink-2 leading-[1.75] max-w-[38ch] mb-9">
+        <p className="section-text">
           I craft fast, accessible, and beautiful interfaces — translating ideas into
           polished web experiences that users actually enjoy.
         </p>
 
-        <div className="flex flex-wrap gap-3.5 items-center">
+        <div className="flex flex-wrap gap-4 items-center">
           <a href="#projects" className="btn-solid">See my work</a>
           <a href="#contact" className="btn-outline">Let's talk</a>
         </div>
@@ -72,7 +68,7 @@ export default function Hero() {
             <div className="text-sm text-tq-dim tracking-[0.03em] mb-4">{info.role}</div>
             <div className="flex flex-wrap gap-1.5">
               {skills.map((s) => (
-                <span key={s} className="text-xs px-2.5 py-1 rounded bg-tq-pale text-tq-dim">{s}</span>
+                <span key={s} className="chip">{s}</span>
               ))}
             </div>
           </div>

@@ -22,14 +22,13 @@ export default function About() {
         {/* Copy */}
         <div>
           <p className="section-eyebrow-wrapper reveal">About me</p>
-          <h2 className="reveal font-display font-bold text-ink tracking-[-0.025em] leading-[1.15]
-            text-[clamp(1.8rem,3.5vw,2.6rem)] mb-14">
+          <h2 className="section-heading reveal">
             {about.headline[0]}<br />{about.headline[1]}
           </h2>
 
           <div className="space-y-4 mb-8">
             {about.paragraphs.map((paragraph, i) => (
-              <p key={paragraph.id} className={`reveal delay-${i + 1} text-xl font-light text-ink-2 leading-[1.8]`}>
+              <p key={paragraph.id} className={`reveal delay-${i + 1} section-text`}>
                 {paragraph.text}
               </p>
             ))}

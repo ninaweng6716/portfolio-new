@@ -15,6 +15,12 @@
 
 /* ── Shared component classes ────────────────────────────────────────────── */
 @layer components {
+  .nav-link {
+    @apply relative font-display text-[0.8rem] font-medium tracking-widest uppercase text-ink-2
+      no-underline transition-colors duration-200 hover:text-ink pb-[3px]
+      after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-tq
+      after:transition-all after:duration-300 hover:after:w-full;
+  }
   .section-eyebrow {
     @apply font-display text-xs font-semibold tracking-[0.14em] uppercase
            text-tq mb-3.5 flex items-center gap-2.5;
@@ -25,7 +31,7 @@
   }
 
   .section-eyebrow-wrapper {
-    @apply reveal section-eyebrow text-base py-6;
+    @apply section-eyebrow text-base py-6;
   }
 
   .btn {
@@ -40,8 +46,19 @@
            hover:shadow-[0_8px_28px_rgba(32,178,160,0.18)];
   }
   .btn-outline {
-    @apply btn bg-transparent text-ink border border-rule
-           hover:border-tq hover:text-tq-dim hover:-translate-y-0.5;
+    @apply btn bg-transparent text-tq-dim border border-tq hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(32,178,160,0.18)];
+  }
+
+  .section-heading {
+    @apply font-display font-bold text-ink tracking-[-0.025em] leading-[1.15] text-[clamp(1.8rem,3.5vw,2.6rem)] mb-14;
+  }
+
+  .section-text {
+    @apply text-xl font-light text-ink-2 leading-[1.75] max-w-[38ch] mb-9;
+  }
+
+  .chip {
+    @apply text-xs px-2 py-[0.2rem] rounded bg-tq-pale text-tq-dim;
   }
 }
 

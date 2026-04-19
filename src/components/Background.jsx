@@ -27,6 +27,7 @@ const BLUR_PX    = 20
 const DAMPING    = 0.999
 const REPULSION  = 0.004
 const OVERLAP    = 0.6
+const MIN_SPEED = 0.4  
 
 function randomBall(w, h) {
   return {
@@ -70,6 +71,13 @@ function stepPhysics(balls, w, h) {
     b.vy *= DAMPING
     if (b.x < b.r || b.x > w - b.r) b.vx *= -1
     if (b.y < b.r || b.y > h - b.r) b.vy *= -1
+
+    const speed = Math.hypot(b.vx, b.vy)
+    if (speed < MIN_SPEED) {
+      const angle = Math.atan2(b.vy, b.vx)
+      b.vx = Math.cos(angle) * MIN_SPEED
+      b.vy = Math.sin(angle) * MIN_SPEED
+    }
   }
 
   for (let i = 0; i < balls.length; i++) {
