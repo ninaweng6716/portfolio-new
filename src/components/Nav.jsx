@@ -29,7 +29,7 @@ export default function Nav() {
       <nav className={`fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center justify-between px-[6vw]
         transition-all duration-300 ease-in-out
         ${stuck
-          ? 'bg-bg/90 backdrop-blur-md shadow-sm border-b border-white/[0.07]'
+          ? 'bg-bg/50 backdrop-blur-md shadow-sm border-b border-white/[0.07]'
           : 'bg-transparent border-transparent'
         }`}
       >

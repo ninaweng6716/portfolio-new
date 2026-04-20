@@ -49,12 +49,45 @@
     @apply btn bg-transparent text-tq-dim border border-tq hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(32,178,160,0.18)];
   }
 
+  .gradient-brand {
+    background-image: linear-gradient(110deg, #2DD4BF 0%, #0891B2 40%, #8B5CF6 100%);
+  }
+
+  .btn-gradient {
+    @apply relative px-5 py-2.5 rounded-xl text-white text-sm font-display font-semibold
+          border border-white/20 overflow-hidden transition-all duration-300
+          hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(32,178,160,0.35)];
+    background-image: linear-gradient(110deg, #2DD4BF 0%, #0891B2 40%, #8B5CF6 100%);
+    background-size: 300% 100%;
+    background-position: 0% 50%;
+    transition: background-position 0.5s ease, transform 0.3s, box-shadow 0.3s;
+  }
+
+  .btn-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s;
+    background-image: linear-gradient(110deg, #5EEAD4 0%, #22D3EE 40%, #C4B5FD 100%);
+    background-size: 300% 100%;
+  }
+
+  .btn-gradient:hover {
+    background-position: 100% 50%;
+    border: 0;
+  }
+
+  .btn-gradient:hover::before {
+    opacity: 1;
+  }
+
   .section-heading {
     @apply font-display font-bold text-ink tracking-[-0.025em] leading-[1.15] text-[clamp(1.8rem,3.5vw,2.6rem)] mb-14;
   }
 
   .section-text {
-    @apply text-xl font-light text-ink-2 leading-[1.75] max-w-[38ch] mb-9;
+    @apply text-xl font-light text-ink-2 leading-[1.75] mb-9;
   }
 
   .section-text-sm {
@@ -63,6 +96,38 @@
 
   .chip {
     @apply text-xs px-2 py-[0.2rem] rounded bg-tq-pale text-tq-dim;
+  }
+
+  /* Hero entrance animations */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gradient-shift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%       { transform: translateY(-10px) rotate(0.4deg); }
+  }
+
+  .hero-animate {
+    opacity: 0;
+    animation: fade-up 1s cubic-bezier(0.2, 0, 0.1, 1) forwards;
+  }
+
+  .gradient-brand {
+    background-image: linear-gradient(110deg, #2DD4BF, #0891B2, #8B5CF6, #2DD4BF);
+    background-size: 300% 100%;
+    animation: gradient-shift 5s ease infinite;
+  }
+
+  .hero-card-float {
+    animation: float 6s ease-in-out infinite;
   }
 }
 

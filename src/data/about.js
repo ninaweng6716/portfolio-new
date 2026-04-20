@@ -1,19 +1,13 @@
 export const about = {
-  headline: ['Built on curiosity', 'and clean code.'],
+  headline: ['Mindful micro-interactions', 'and effortless visuals.'],
   paragraphs: [
     {
       id: 'about-paragraph-1',
-      text: "I'm a front-end developer who cares about more than just making things work — I care about making things feel right. From smooth interactions to accessible markup, I treat UI as a craft.",
+      text: "I’m a front-end developer who is always learning new tools. I love working with diverse colour combinations and incorporating ample micro-interactions. You know, the small and intentional things that make a website feel alive (very mindful).",
     },
     {
       id: 'about-paragraph-2',
-      text: "I've worked across the full front-end stack, collaborating with designers and back-end teams to ship products that are both technically solid and genuinely delightful to use.",
+      text: "I’ve collaborated with small businesses, institutions, and individuals across different industries to help refine their online presence. I’m currently open to new opportunities, so feel free to reach out if our work feels aligned.",
     },
-  ],
-  values: [
-    { id: 'about-value-1', icon: '⚡', text: 'Performance-conscious by default' },
-    { id: 'about-value-2', icon: '♿', text: 'Accessibility built in, not bolted on' },
-    { id: 'about-value-3', icon: '🎨', text: 'Respect for the design intent' },
-    { id: 'about-value-4', icon: '🧩', text: 'Scalable component architecture' },
   ],
 }

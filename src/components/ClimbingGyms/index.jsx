@@ -36,27 +36,12 @@ export default function ClimbingGyms({ lat, lng }) {
     }, 300)
   }
 
-  // psst button — always in DOM so reveal observer catches it
-  // fades out when content opens, fades back in when closed
   return (
     <div>
       <div className={`text-center transition-all duration-300 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2 pointer-events-none'}`}>
-        <button
-          onClick={open}
-          className="relative px-5 py-2.5 rounded-xl text-white text-sm font-display font-semibold border border-white/20 overflow-hidden group transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(32,178,160,0.35)]"
-          style={{
-            background: 'linear-gradient(135deg, #2DD4BF 0%, #0891B2 45%, #8B5CF6 100%)',
-          }}
-        >
-          <span
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{
-              background: 'linear-gradient(135deg, #5EEAD4 0%, #22D3EE 45%, #C4B5FD 100%)',
-            }}
-          />
+        <button onClick={open} className="btn-gradient group">
           <span className="relative z-10 flex items-center gap-2">
-            <span>🤫</span>
-            psst… wanna see something?
+            Click me if you love to climb!
           </span>
         </button>
       </div>

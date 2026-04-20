@@ -33,17 +33,6 @@ export default function About() {
                 </p>
               ))}
             </div>
-            <div className="reveal delay-3 flex flex-col gap-0">
-              {about.values.map(({ id, icon, text }) => (
-                <div key={id}
-                  className="flex items-center gap-3 text-xl text-ink-2 py-2.5
-                    border-b border-rule last:border-none
-                    transition-all duration-200 cursor-default hover:text-ink hover:pl-1.5">
-                  <span className="w-5 text-center text-xl">{icon}</span>
-                  {text}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
