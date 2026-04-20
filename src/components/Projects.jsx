@@ -39,7 +39,7 @@ function ProjectCard({ project, delay, onClick }) {
       <div className="flex flex-col flex-1 px-[1.375rem] py-5">
         <Chips chips={project.chips} />
         <div className="font-display font-bold text-ink text-xl tracking-[-0.01em] mb-1.5">{project.name}</div>
-        <p className="text-base text-ink-2 leading-[1.6] font-light flex-1">{truncatedDesc}</p>
+        <p className="section-text-sm flex-1">{truncatedDesc}</p>
       </div>
     </div>
   )

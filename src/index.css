@@ -57,6 +57,10 @@
     @apply text-xl font-light text-ink-2 leading-[1.75] max-w-[38ch] mb-9;
   }
 
+  .section-text-sm {
+    @apply text-base text-ink-2 leading-[1.6] font-light
+  }
+
   .chip {
     @apply text-xs px-2 py-[0.2rem] rounded bg-tq-pale text-tq-dim;
   }

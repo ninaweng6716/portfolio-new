@@ -3,13 +3,12 @@ import Nav from "../components/Nav"
 import Footer from "../components/Footer"
 import useReveal from "../hooks/useReveal"
 
-export default function Layout({ weather }) {
+export default function Layout({ weather, coords }) {
   const scrollY = useReveal()
-
   return (
     <>
       <Nav />
-      <Outlet context={{ scrollY, weather }} />
+      <Outlet context={{ scrollY, weather, coords }} />
       <Footer />
     </>
   )
