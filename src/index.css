@@ -129,6 +129,7 @@
   .hero-card-float {
     animation: float 6s ease-in-out infinite;
   }
+
 }
 
 /* Reveal-on-scroll utility — toggled by useReveal hook */

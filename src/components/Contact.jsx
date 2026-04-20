@@ -113,7 +113,7 @@ export default function Contact() {
       <div className="relative z-10">
         <p className="section-eyebrow-wrapper reveal">Get in touch</p>
         <h2 className="section-heading reveal">
-          Let's build<br />something great.
+          Let's build<br />something great
         </h2>
         <p className="reveal delay-1 section-text">
           Open to projects of all shapes and sizes and interesting conversations about the web, climbing, and life.

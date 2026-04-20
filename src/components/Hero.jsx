@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { info } from '../data/info'
 import { skills } from '../data/skills'
 import { useOutletContext } from 'react-router-dom'
@@ -7,6 +8,7 @@ const delay = (d) => ({ style: { animationDelay: d } })
 
 export default function Hero() {
   const { weather } = useOutletContext()
+  const [hoveredSkill, setHoveredSkill] = useState(null)
 
   return (
     <section
@@ -16,7 +18,6 @@ export default function Hero() {
     >
       {/* Left copy */}
       <div className="relative z-1">
-
         <div className="hero-animate flex items-center gap-3 mb-7" {...delay('0.1s')}>
           <img
             src={info.pic}
@@ -33,10 +34,10 @@ export default function Hero() {
 
         <h1 className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-5xl mb-5">
           <span className="hero-animate block" {...delay('0.2s')}>
-            <span className="text-ink">Front-end developer.</span>
+            <span className="text-ink">Front-end web developer</span>
           </span>
           <span className="hero-animate block" {...delay('0.35s')}>
-            <span className="block bg-clip-text text-transparent gradient-brand">Detail-first.</span>
+            <span className="block bg-clip-text text-transparent gradient-brand">Led by tasteful interactions</span>
           </span>
         </h1>
 
@@ -57,14 +58,42 @@ export default function Hero() {
       {/* Right card — desktop only */}
       <div className="hidden md:flex justify-end items-center relative z-1">
         <div className="hero-animate" {...delay('0.4s')}>
-          <div className="hero-card-float bg-white rounded-2xl border border-rule overflow-hidden max-w-[400px] shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+          <div className="hero-card-float group bg-white rounded-2xl border border-rule overflow-hidden max-w-[400px] shadow-[0_20px_60px_rgba(0,0,0,0.06)] transition-shadow duration-500 hover:shadow-[0_32px_80px_rgba(32,178,160,0.15)]">
+
+            {/* Photo with overlay */}
             <div className="relative aspect-square bg-tq-pale overflow-hidden">
-              <img src={info.pic} alt={info.name} className="object-cover w-full h-full" />
+              <img
+                src={info.pic}
+                alt={info.name}
+                className="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute bottom-4 left-4 right-4 translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400">
+                <div className="text-white/75 font-display text-sm font-semibold tracking-wide drop-shadow">
+                  <p>Also a climber, cat-lover, and mouth-breather</p>
+                </div>
+              </div>
             </div>
+
+            {/* Card body */}
             <div className="px-6 py-5">
-              <div className="font-display font-bold text-ink text-lg mb-0.5">{info.name}</div>
+              <div className="flex items-center justify-between mb-3">
+                <div className="font-display font-bold text-ink text-lg">{info.name}</div>
+                <div className="w-2 h-2 rounded-full bg-tq animate-blink" />
+              </div>
               <div className="flex flex-wrap gap-1.5">
-                {skills.map((s) => <span key={s} className="chip">{s}</span>)}
+                {skills.map((s) => (
+                <span
+                  key={s}
+                  onMouseEnter={() => setHoveredSkill(s)}
+                  onMouseLeave={() => setHoveredSkill(null)}
+                  className={`
+                    chip
+                  `}
+                >
+                  {s}
+                </span>
+                ))}
               </div>
             </div>
           </div>

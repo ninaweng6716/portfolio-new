@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { info } from '../data/info'
+import DragonLogo from '../assets/dragon-head.svg?react'
 
 const NAV_LINKS = [
   ['#about',   'About'],
@@ -33,9 +34,10 @@ export default function Nav() {
           : 'bg-transparent border-transparent'
         }`}
       >
+
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-1.5 font-display font-bold text-[1.1rem] tracking-tight text-ink no-underline group">
-          <span className="w-[7px] h-[7px] rounded-full bg-tq inline-block transition-transform duration-300 ease-in-out group-hover:scale-[1.6]" />
+        <a href="#hero" className="flex items-center gap-2 font-display font-bold text-[1.1rem] tracking-tight text-ink no-underline group">
+          <DragonLogo className="w-7 h-7 transition-transform duration-300 ease-in-out group-hover:rotate-12" />
           {info.name}
         </a>
 
