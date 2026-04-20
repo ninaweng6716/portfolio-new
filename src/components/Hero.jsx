@@ -32,12 +32,12 @@ export default function Hero() {
           )}
         </div>
 
-        <h1 className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-5xl mb-5">
+        <h1 className="font-display font-bold leading-[1.05] tracking-[-0.03em] text-4xl md:text-5xl mb-5">
           <span className="hero-animate block" {...delay('0.2s')}>
             <span className="text-ink">Front-end web developer</span>
           </span>
           <span className="hero-animate block" {...delay('0.35s')}>
-            <span className="block bg-clip-text text-transparent gradient-brand">Led by tasteful interactions</span>
+            <span className="block bg-clip-text text-transparent gradient-brand">led by interactions.</span>
           </span>
         </h1>
 
