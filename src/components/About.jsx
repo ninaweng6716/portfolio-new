@@ -48,7 +48,9 @@ export default function About() {
         </div>
 
         {coords?.lat && coords?.lng && (
-          <ClimbingGyms lat={coords.lat} lng={coords.lng} />
+          <div className="reveal">
+            <ClimbingGyms lat={coords.lat} lng={coords.lng} />
+          </div>
         )}
 
       </div>

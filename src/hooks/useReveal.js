@@ -9,8 +9,17 @@ export default function useReveal() {
       { threshold: 0.1, rootMargin: '0px 0px -32px 0px' }
     )
 
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    const observe = (root = document) =>
+      root.querySelectorAll('.reveal:not(.visible)').forEach((el) => observer.observe(el))
 
-    return () => observer.disconnect()
+    observe()
+
+    const mutation = new MutationObserver(() => observe())
+    mutation.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+      mutation.disconnect()
+    }
   }, [])
 }
