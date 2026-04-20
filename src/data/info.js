@@ -1,5 +1,5 @@
 import profilePic from '../assets/profile.png'
-import coolPic from '../assets/cool.png'
+import coolPic from '../assets/cool.webp'
 
 export const info = {
   name:     'Nina Weng',
