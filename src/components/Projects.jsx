@@ -44,33 +44,17 @@ function ProjectCard({ project, delay, onClick }) {
 }
 
 function ProjectModal({ project, isOpen, onClose }) {
-  const [visible, setVisible] = useState(false)
-  const [rendered, setRendered] = useState(false)
-
-  useEffect(() => {
-    if (isOpen) {
-      setRendered(true)
-      requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)))
-    } else {
-      setVisible(false)
-      const t = setTimeout(() => setRendered(false), 300)
-      return () => clearTimeout(t)
-    }
-  }, [isOpen])
-
-  if (!rendered || !project) return null
-
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300
-        ${visible ? 'opacity-100' : 'opacity-0'}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300
+        ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
     >
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       <div
         className={`relative bg-white rounded-[20px] max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl
           transition-all duration-300
-          ${visible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}
+          ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}
       >
         <div className="relative h-[200px] flex-shrink-0 overflow-hidden rounded-t-[20px]">
           <img src={project.img} alt={project.name} className="w-full h-full object-contain p-6 rounded-t-[20px] bg-black" />
@@ -96,11 +80,11 @@ function ProjectModal({ project, isOpen, onClose }) {
 }
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null)
+  const [selectedProject, setSelectedProject] = useState(projects[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const openModal  = (project) => { setSelectedProject(project); setIsModalOpen(true) }
-  const closeModal = () => { setIsModalOpen(false); setTimeout(() => setSelectedProject(null), 300) }
+  const closeModal = () => setIsModalOpen(false)
 
   return (
     <>
