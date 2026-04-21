@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react"
 
-const ClimbingGyms = lazy(() => import("../climbingGyms/index.jsx"))
+const ClimbingGyms = lazy(() => import("../climbingGyms_temp/index.jsx"))
 
 export default function AboutGyms({ coords }) {
   if (!coords?.lat || !coords?.lng) return null
