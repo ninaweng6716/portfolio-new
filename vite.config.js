@@ -25,6 +25,9 @@ function sitemapPlugin() {
 export default defineConfig({
   base: '/',
   plugins: [react(), svgr(), sitemapPlugin()],
+  build: {
+    cssCodeSplit: true,
+  },
   optimizeDeps: {
     esbuildOptions: {
       loader: {
