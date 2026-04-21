@@ -52,7 +52,7 @@ function ProjectModal({ project, isOpen, onClose }) {
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       <div
-        className={`relative bg-white rounded-[20px] max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl
+        className={`relative bg-white rounded-[20px] m-4 max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl
           transition-all duration-300
           ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}
       >
@@ -66,9 +66,9 @@ function ProjectModal({ project, isOpen, onClose }) {
           </button>
         </div>
 
-        <div className="overflow-y-auto pt-4 pb-8 px-6">
+        <div className="overflow-y-auto pt-6 pb-8 px-6">
           <Chips chips={project.chips} />
-          <h3 className="font-display font-bold text-ink text-2xl tracking-[-0.02em] mb-2">{project.name}</h3>
+          <h3 className="h3-portfolio">{project.name}</h3>
           <p className="text-ink-2 leading-relaxed mb-6 text-lg">{project.desc}</p>
           <a href={project.href} target="_blank" rel="noopener noreferrer" className="btn-solid">
             See Demo <span>→</span>

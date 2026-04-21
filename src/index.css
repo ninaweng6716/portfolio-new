@@ -21,6 +21,14 @@
       after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-tq
       after:transition-all after:duration-300 hover:after:w-full;
   }
+
+  .mobile-nav-span {
+    @apply absolute left-0 top-1/2 w-full h-[2px] bg-ink
+  }
+
+  .h3-portfolio {
+    @apply font-display font-bold text-ink text-2xl tracking-tight my-4
+  }
   .section-eyebrow {
     @apply font-display text-xs font-semibold tracking-[0.14em] uppercase
            text-tq mb-3.5 flex items-center gap-2.5;

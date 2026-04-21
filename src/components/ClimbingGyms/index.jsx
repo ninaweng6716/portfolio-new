@@ -49,7 +49,7 @@ export default function ClimbingGyms({ lat, lng }) {
       {rendered && (
         <div className={`transition-all duration-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <div className="flex items-center justify-between mb-6">
-            <h3 className="font-display font-bold text-ink text-2xl tracking-tight">
+            <h3 className="h3-portfolio">
               Places to send near you 🧗
             </h3>
             <button

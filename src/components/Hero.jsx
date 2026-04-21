@@ -13,8 +13,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-dvh pt-[calc(60px+10rem)] pb-32 px-[6vw]
-        grid grid-cols-1 md:grid-cols-2 items-center gap-16"
+      className="relative min-h-dvh pt-[calc(60px+6rem)] pb-32 px-[6vw] grid grid-cols-1 md:grid-cols-2 items-center gap-16"
     >
       {/* Left copy */}
       <div className="relative z-1">
