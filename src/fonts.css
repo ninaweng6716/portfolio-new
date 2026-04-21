@@ -1,0 +1,47 @@
+/* Syne — variable, covers all weights in one file */
+@font-face {
+  font-family: 'Syne';
+  src: url('./src/fonts/Syne-VariableFont_wght.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Lato — only the weights you actually use */
+@font-face {
+  font-family: 'Lato';
+  src: url('./src/fonts/Lato-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('./src/fonts/Lato-LightItalic.woff2') format('woff2');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lato';
+  src: url('./src/fonts/Lato-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Cormorant Garamond — variable, covers all weights in one file */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('./src/fonts/CormorantGaramond-VariableFont_wght.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('./src/fonts/CormorantGaramond-Italic-VariableFont_wght.woff2') format('woff2');
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
