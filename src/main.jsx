@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import './fonts.css'
+import { LocationProvider } from "./context/LocationContext"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <LocationProvider>
+      <App />
+    </LocationProvider>
   </React.StrictMode>
 )

@@ -2,12 +2,14 @@ import { useState, lazy, Suspense } from 'react'
 import { info } from '../data/info'
 import { skills } from '../data/skills'
 import { useOutletContext } from 'react-router-dom'
+import { useLocation } from '../context/LocationContext'
 
 const delay = (d) => ({ style: { animationDelay: d } })
 const WeatherGreeting = lazy(() => import("./WeatherGreetings"))
 
 export default function Hero() {
   const { weather } = useOutletContext()
+  const { coords, requestLocation, loading, permission } = useLocation()
   const [hoveredSkill, setHoveredSkill] = useState(null)
 
   return (
@@ -47,11 +49,37 @@ export default function Hero() {
         <div className="hero-animate flex flex-wrap gap-4 items-center" {...delay('0.65s')}>
           <a href="#projects" className="btn-solid">See my work</a>
           <a href="#contact" className="btn-outline">Let's talk</a>
+
+          {/* LOCATION UI */}
+
+          {/* Ask for permission */}
+          {permission === "prompt" && !loading && (
+            <button
+              onClick={requestLocation}
+              className="btn-outline"
+            >
+              ☀️ Localize My Experience
+            </button>
+          )}
+
+          {/* Getting location */}
+          {loading && (
+            <p className="section-text-sm">
+              Getting your location…
+            </p>
+          )}
+
+          {/* User blocked location */}
+          {permission === "denied" && !loading && (
+            <p className="section-text-sm">
+              Please enable location access in your browser to personalize your experience.
+            </p>
+          )}
         </div>
 
         <div className="hero-animate mt-5 section-text" {...delay('0.8s')}>
           <Suspense fallback={null}>
-            <WeatherGreeting weather={weather} />
+            {weather && <WeatherGreeting weather={weather} />}
           </Suspense>
         </div>
       </div>
