@@ -4,7 +4,7 @@ import DragonLogo from '../assets/dragon-head.svg?react'
 
 const NAV_LINKS = [
   ['#about',    'About'],
-  ['#projects', 'Work'],
+  ['#projects', 'Projects'],
   ['#contact',  'Contact'],
 ]
 
