@@ -71,7 +71,7 @@ export default function ClimbingGyms({ lat, lng }) {
             <div className="h-[200px] rounded-2xl border border-rule flex flex-col items-center justify-center gap-2 text-center px-6">
               <span className="text-3xl">🧗</span>
               <p className="font-display font-semibold text-ink">Climbing spots unavailable right now</p>
-              <p className="text-sm text-ink-2">The service we use to find nearby climbing spots is having a moment. Check back soon!</p>
+              <p className="text-sm text-ink-2">The service to find nearby climbing spots is having a moment. Check back soon!</p>
             </div>
           )}
 

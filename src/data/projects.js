@@ -1,6 +1,6 @@
-import ptplus from '../assets/ptplus.png'
-import wa from '../assets/wa2023.png'
-import ss from '../assets/screenscape.png'
+import ptplus from '../assets/ptplus.webp'
+import wa from '../assets/wa2023.webp'
+import ss from '../assets/screenscape.webp'
 
 export const projects = [
   {

@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { info } from '../data/info'
 import { skills } from '../data/skills'
 import { useOutletContext } from 'react-router-dom'
-import WeatherGreeting from './WeatherGreetings'
 
 const delay = (d) => ({ style: { animationDelay: d } })
+const WeatherGreeting = lazy(() => import("./WeatherGreetings"))
 
 export default function Hero() {
   const { weather } = useOutletContext()
@@ -50,7 +50,9 @@ export default function Hero() {
         </div>
 
         <div className="hero-animate mt-5 section-text" {...delay('0.8s')}>
-          <WeatherGreeting weather={weather} />
+          <Suspense fallback={null}>
+            <WeatherGreeting weather={weather} />
+          </Suspense>
         </div>
       </div>
 

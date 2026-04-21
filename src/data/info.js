@@ -1,4 +1,4 @@
-import profilePic from '../assets/profile.png'
+import profilePic from '../assets/profile.webp'
 import coolPic from '../assets/cool.webp'
 
 export const info = {
