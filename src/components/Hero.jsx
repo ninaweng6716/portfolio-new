@@ -111,12 +111,14 @@ export default function Hero() {
                 <span className="font-display font-bold text-ink text-lg">{info.name}</span>
                 <span className="w-2 h-2 rounded-full bg-tq animate-blink" />
               </div>
-              <ul className="flex flex-wrap gap-1.5" aria-label="Skills">
+              <ul className="flex flex-wrap gap-1.5">
                 {skills.map((s) => (
                   <li
                     key={s}
                     onMouseEnter={() => setHoveredSkill(s)}
                     onMouseLeave={() => setHoveredSkill(null)}
+                    onFocus={() => setHoveredSkill(s)}
+                    onBlur={() => setHoveredSkill(null)}
                     className="chip"
                   >
                     {s}
