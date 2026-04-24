@@ -2,13 +2,11 @@ import { about } from "../../data/about"
 
 export default function AboutText() {
   return (
-    <div>
-      <p className="section-eyebrow-wrapper reveal">About me</p>
+    <section aria-labelledby="about-heading">
+      <p className="section-eyebrow-wrapper reveal" aria-hidden="true">About me</p>
 
-      <h2 className="section-heading reveal">
-        {about.headline[0]}
-        <br />
-        {about.headline[1]}
+      <h2 id="about-heading" className="section-heading reveal">
+        {about.headline[0]} {about.headline[1]}
       </h2>
 
       <div className="space-y-4 mb-8">
@@ -21,6 +19,6 @@ export default function AboutText() {
           </p>
         ))}
       </div>
-    </div>
+    </section>
   )
 }

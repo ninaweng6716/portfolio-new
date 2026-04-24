@@ -9,11 +9,16 @@ export default function About() {
   return (
     <section
       id="about"
+      aria-labelledby="about-heading"
       className="py-[12rem] px-[6vw] min-h-dvh flex items-center"
     >
       <div className="w-full flex flex-col gap-20">
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-20 items-center">
+        <div
+          className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-20 items-center"
+          role="group"
+          aria-label="About me photo and biography"
+        >
           <AboutImage />
           <AboutText />
         </div>

@@ -14,19 +14,18 @@ export default function Contact() {
   return (
     <section
       id="contact"
+      aria-labelledby="contact-heading"
       className="relative py-[12rem] px-[6vw] grid grid-cols-1 md:grid-cols-2 gap-20 items-center min-h-dvh overflow-hidden"
     >
       <MailToast visible={mailToast} />
 
       <div className="relative z-10">
-        <p className="section-eyebrow-wrapper reveal">
+        <p className="section-eyebrow-wrapper reveal" aria-hidden="true">
           Get in touch
         </p>
 
-        <h2 className="section-heading reveal">
-          Let's build
-          <br />
-          something great
+        <h2 id="contact-heading" className="section-heading reveal">
+          Let's build something great
         </h2>
 
         <p className="reveal delay-1 section-text">
@@ -36,7 +35,7 @@ export default function Contact() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-5 relative z-10">
+      <nav aria-label="Contact links" className="flex flex-col gap-5 relative z-10">
         {Object.entries(contactData).map(
           ([key, value], i) => (
             <ContactRow
@@ -48,7 +47,7 @@ export default function Contact() {
             />
           )
         )}
-      </div>
+      </nav>
     </section>
   )
 }

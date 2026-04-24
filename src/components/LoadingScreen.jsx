@@ -14,10 +14,19 @@ export default function LoadingScreen({ ready }) {
   if (!rendered) return null
 
   return (
-    <div className={`fixed inset-0 z-[100] bg-bg flex items-center justify-center
-      transition-opacity duration-500 ease-in-out
-      ${visible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-      <div className="flex items-center gap-2.5 font-display font-bold text-ink text-lg tracking-tight">
+    <div
+      role="status"
+      aria-live="polite"
+      aria-label={visible ? "Loading page content" : undefined}
+      aria-hidden={!visible}
+      className={`fixed inset-0 z-[100] bg-bg flex items-center justify-center
+        transition-opacity duration-500 ease-in-out
+        ${visible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+    >
+      <div
+        className="flex items-center gap-2.5 font-display font-bold text-ink text-lg tracking-tight"
+        aria-hidden="true"
+      >
         <span className="w-2 h-2 rounded-full bg-tq animate-blink" />
         <span className="animate-pulse">Loading…</span>
       </div>

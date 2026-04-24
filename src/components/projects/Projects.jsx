@@ -13,35 +13,46 @@ export default function Projects() {
 
   const openModal = (project) => {
     setSelectedProject(project)
-    setMounted(true)      // mount modal first
-    setIsModalOpen(true)  // then animate open
+    setMounted(true)
+    setIsModalOpen(true)
   }
 
   const closeModal = () => {
-    setIsModalOpen(false) // triggers close animation
+    setIsModalOpen(false)
   }
 
   const handleExited = () => {
-    setMounted(false)     // unmount AFTER animation
+    setMounted(false)
   }
 
   return (
     <>
-      <section id="projects" className="py-[6.5rem] px-[6vw] relative">
-        <p className="section-eyebrow-wrapper reveal">Projects</p>
-        <h2 className="section-heading reveal">Select works</h2>
+      <section
+        id="projects"
+        aria-labelledby="projects-heading"
+        className="py-[6.5rem] px-[6vw] relative"
+      >
+        <p className="section-eyebrow-wrapper reveal" aria-hidden="true">Projects</p>
+        <h2 id="projects-heading" className="section-heading reveal">Select works</h2>
 
-        <Suspense fallback={null}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <Suspense
+          fallback={
+            <p role="status" aria-live="polite" className="section-text-sm">
+              Loading projects…
+            </p>
+          }
+        >
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 list-none">
             {projects.map((p, i) => (
-              <ProjectCard
-                key={p.name}
-                project={p}
-                delay={DELAYS[i]}
-                onClick={openModal}
-              />
+              <li key={p.name}>
+                <ProjectCard
+                  project={p}
+                  delay={DELAYS[i]}
+                  onClick={openModal}
+                />
+              </li>
             ))}
-          </div>
+          </ul>
         </Suspense>
       </section>
 

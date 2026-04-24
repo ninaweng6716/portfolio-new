@@ -4,13 +4,13 @@ import 'leaflet/dist/leaflet.css'
 
 const userIcon = L.divIcon({
   className: '',
-  html: `<div style="width:14px;height:14px;border-radius:50%;background:#14B8A6;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)"></div>`,
+  html: `<div style="width:14px;height:14px;border-radius:50%;background:#14B8A6;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3)" role="img" aria-label="Your location"></div>`,
   iconAnchor: [7, 7],
 })
 
 const gymIcon = L.divIcon({
   className: '',
-  html: `<div style="font-size:20px;line-height:1">🧗</div>`,
+  html: `<div style="font-size:20px;line-height:1" role="img" aria-label="Climbing gym">🧗</div>`,
   iconAnchor: [10, 20],
 })
 
@@ -22,14 +22,16 @@ export default function ClimbingMap({ gyms, userLat, userLng, activeGym, onGymCl
   // Init map once
   useEffect(() => {
     if (mapRef.current) return
-    const map = L.map(containerRef.current, { zoomControl: true, scrollWheelZoom: false })
-      .setView([userLat, userLng], 12)
+    const map = L.map(containerRef.current, {
+      zoomControl: true,
+      scrollWheelZoom: false,
+    }).setView([userLat, userLng], 12)
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map)
 
-    L.marker([userLat, userLng], { icon: userIcon })
+    L.marker([userLat, userLng], { icon: userIcon, alt: 'Your location' })
       .addTo(map)
       .bindPopup('You are here')
 
@@ -41,10 +43,11 @@ export default function ClimbingMap({ gyms, userLat, userLng, activeGym, onGymCl
     if (!mapRef.current) return
     gyms.forEach(gym => {
       if (markersRef.current[gym.id]) return
-      const marker = L.marker([gym.lat, gym.lng], { icon: gymIcon })
+      const marker = L.marker([gym.lat, gym.lng], { icon: gymIcon, alt: gym.name })
         .addTo(mapRef.current)
         .bindPopup(gym.name)
         .on('click', () => onGymClick(gym))
+        .on('keypress', (e) => { if (e.originalEvent.key === 'Enter') onGymClick(gym) })
       markersRef.current[gym.id] = marker
     })
   }, [gyms, onGymClick])
@@ -56,5 +59,12 @@ export default function ClimbingMap({ gyms, userLat, userLng, activeGym, onGymCl
     markersRef.current[activeGym.id]?.openPopup()
   }, [activeGym])
 
-  return <div ref={containerRef} className="w-full h-full rounded-xl z-10" />
+  return (
+    <div
+      ref={containerRef}
+      role="application"
+      aria-label="Map showing nearby climbing gyms"
+      className="w-full h-full rounded-xl z-10"
+    />
+  )
 }

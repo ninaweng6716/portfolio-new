@@ -27,6 +27,15 @@ export default function ContactRow({
   const href =
     contactKey === "email" ? `mailto:${value}` : value
 
+  const label =
+    contactKey === "email"
+      ? "Send me an email"
+      : contactKey === "github"
+      ? "Visit my GitHub profile, opens in new tab"
+      : contactKey === "linkedin"
+      ? "Visit my LinkedIn profile, opens in new tab"
+      : `Open ${contactKey}`
+
   return (
     <div
       className={`reveal delay-${index + 1} group relative flex items-center gap-4
@@ -38,43 +47,34 @@ export default function ContactRow({
         href={href}
         target={contactKey === "email" ? "_self" : "_blank"}
         rel="noopener noreferrer"
-        onClick={
-          contactKey === "email" ? onEmailClick : undefined
-        }
-        className="absolute inset-0 rounded-xl z-10"
-        aria-label={`Open ${contactKey}`}
+        onClick={contactKey === "email" ? onEmailClick : undefined}
+        className="absolute inset-0 rounded-xl z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-tq"
+        aria-label={label}
       />
 
-      <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center">
+      <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center" aria-hidden="true">
         {contactKey === "github" && <GitHubIcon />}
         {contactKey === "linkedin" && <LinkedInIcon />}
         {contactKey === "email" && <EmailIcon />}
       </div>
 
-      <div className="flex-1">
+      <div className="flex-1" aria-hidden="true">
         <div className="font-display text-base font-semibold tracking-[0.08em] uppercase text-white/80">
-          {contactKey.charAt(0).toUpperCase() +
-            contactKey.slice(1)}
+          {contactKey.charAt(0).toUpperCase() + contactKey.slice(1)}
         </div>
       </div>
 
       <button
         onClick={handleCopy}
+        aria-label={copied ? `${contactKey} copied` : `Copy ${contactKey}`}
+        aria-live="polite"
         className="relative z-20 flex items-center gap-1.5
         px-3 py-1.5 rounded-lg text-xs font-display font-semibold
-        tracking-[0.06em] uppercase bg-white/15 text-white hover:bg-white/25"
+        tracking-[0.06em] uppercase bg-white/15 text-white hover:bg-white/25
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-tq"
       >
-        {copied ? (
-          <>
-            <span>✓</span>
-            <span>Copied</span>
-          </>
-        ) : (
-          <>
-            <span>⎘</span>
-            <span>Copy</span>
-          </>
-        )}
+        <span aria-hidden="true">{copied ? "✓" : "⎘"}</span>
+        <span>{copied ? "Copied" : "Copy"}</span>
       </button>
     </div>
   )

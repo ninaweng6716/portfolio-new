@@ -11,30 +11,44 @@ export default function GymCard({ gym, active, onClick, userLat, userLng }) {
   })()
 
   return (
-    <div
-      onClick={onClick}
-      className={`cursor-pointer rounded-xl border p-4 transition-all duration-200
+    <article
+      aria-label={`${gym.name}, ${distance} kilometres away${active ? ', selected' : ''}`}
+      className={`relative rounded-xl border p-4 transition-all duration-200
         hover:-translate-y-0.5 hover:shadow-md
         ${active
           ? 'border-tq bg-tq-pale shadow-[0_4px_16px_rgba(32,178,160,0.15)]'
           : 'border-rule bg-white hover:border-tq/40'
         }`}
     >
-      <div className="font-display font-semibold text-ink text-sm mb-1">{gym.name}</div>
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-xs text-tq-dim font-medium">{distance} km away</span>
-        {gym.website && (
-          <a
-            href={gym.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={e => e.stopPropagation()}
-            className="text-xs font-semibold text-tq hover:underline"
-          >
-            Website →
-          </a>
-        )}
+      {/* Full card clickable overlay */}
+      <button
+        onClick={onClick}
+        aria-pressed={active}
+        className="absolute inset-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tq focus-visible:ring-offset-2"
+        tabIndex={0}
+      />
+
+      {/* Content sits above the button */}
+      <div className="relative z-10 pointer-events-none">
+        <div className="font-display font-semibold text-ink text-sm mb-1">{gym.name}</div>
+        <div className="flex items-center justify-between gap-2">
+          <span className="text-xs text-tq-dim font-medium">{distance} km away</span>
+
+          {gym.website && (
+            <a
+              href={gym.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${gym.name} website, opens in new tab`}
+              onClick={e => e.stopPropagation()}
+              className="relative z-10 pointer-events-auto text-xs font-semibold text-tq hover:underline
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tq focus-visible:ring-offset-1"
+            >
+              Website <span aria-hidden="true">→</span>
+            </a>
+          )}
+        </div>
       </div>
-    </div>
+    </article>
   )
 }

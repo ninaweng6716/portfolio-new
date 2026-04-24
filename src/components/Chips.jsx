@@ -1,11 +1,11 @@
 export default function Chips({ chips }) {
   return (
-    <div className="flex flex-wrap gap-1.5 mb-3">
+    <ul className="flex flex-wrap gap-1.5 mb-3 list-none" aria-label="Technologies used">
       {chips.map((c) => (
-        <span key={c} className="chip">
+        <li key={c} className="chip">
           {c}
-        </span>
+        </li>
       ))}
-    </div>
-  );
+    </ul>
+  )
 }

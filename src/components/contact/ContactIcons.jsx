@@ -1,5 +1,5 @@
 export const GitHubIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
     <path d="M12 .297c-6.63 0-12 5.373-12 12
       0 5.303 3.438 9.8 8.205 11.385
       .6.113.82-.258.82-.577
@@ -29,7 +29,7 @@ export const GitHubIcon = () => (
 )
 
 export const LinkedInIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
     <path d="M20.447 20.452h-3.554v-5.569
       c0-1.328-.027-3.037-1.852-3.037
       -1.853 0-2.136 1.445-2.136 2.939v5.667
@@ -47,7 +47,7 @@ export const LinkedInIcon = () => (
 )
 
 export const EmailIcon = () => (
-  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
+  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white" aria-hidden="true">
     <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636
       H1.636A1.636 1.636 0 0 1 0 19.366V5.457
       c0-2.023 2.309-3.178 3.927-1.964L12 9.548
