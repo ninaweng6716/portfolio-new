@@ -17,12 +17,12 @@ function Logo() {
   )
 }
 
-function NavLinks({ onClick, className = '' }) {
+function NavLinks({ onClick, className = '', tabIndex = 0 }) {
   return (
     <ul className={`list-none ${className}`}>
       {NAV_LINKS.map(([href, label]) => (
         <li key={href}>
-          <a href={href} onClick={onClick} className="nav-link">{label}</a>
+          <a href={href} onClick={onClick} tabIndex={tabIndex} className="nav-link">{label}</a>
         </li>
       ))}
     </ul>
@@ -99,11 +99,12 @@ export default function Nav() {
             <button
               aria-label="Close navigation menu"
               onClick={() => setMenuOpen(false)}
+              tabIndex={menuOpen ? 0 : -1}
               className="absolute top-4 right-[6vw] w-8 h-8 flex items-center justify-center text-ink text-xl font-bold"
             >
               <span aria-hidden="true">✕</span>
             </button>
-            <NavLinks onClick={() => setMenuOpen(false)} className="flex flex-col items-center gap-10" />
+            <NavLinks onClick={() => setMenuOpen(false)} className="flex flex-col items-center gap-10" tabIndex={menuOpen ? 0 : -1} />
           </div>
 
         </nav>

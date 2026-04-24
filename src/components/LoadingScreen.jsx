@@ -17,7 +17,7 @@ export default function LoadingScreen({ ready }) {
     <div
       role="status"
       aria-live="polite"
-      aria-label={visible ? "Loading page content" : undefined}
+      aria-label="Loading page content"
       aria-hidden={!visible}
       className={`fixed inset-0 z-[100] bg-bg flex items-center justify-center
         transition-opacity duration-500 ease-in-out

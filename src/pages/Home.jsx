@@ -10,17 +10,19 @@ const Contact = lazy(() => import("../components/contact/Contact"));
 
 export default function Home() {
   return (
-    <main>
-      {/* Critical content — loads immediately */}
+    <div>
       <Background />
       <Hero />
 
-      {/* Non-critical content — code split */}
-      <Suspense fallback={null}>
+      <Suspense fallback={
+        <div role="status" aria-live="polite" className="sr-only">
+          Loading page sections…
+        </div>
+      }>
         <About />
         <Projects />
         <Contact />
       </Suspense>
-    </main>
-  );
+    </div>
+  )
 }

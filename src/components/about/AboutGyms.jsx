@@ -13,9 +13,9 @@ export default function AboutGyms({ coords }) {
         </p>
       }
     >
-      <section aria-label="Nearby climbing gyms" className="reveal">
+      <div className="reveal">
         <ClimbingGyms lat={coords.lat} lng={coords.lng} />
-      </section>
+      </div>
     </Suspense>
   )
 }

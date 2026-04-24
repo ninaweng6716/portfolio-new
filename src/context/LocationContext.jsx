@@ -44,5 +44,7 @@ export function LocationProvider({ children }) {
 }
 
 export function useLocation() {
-  return useContext(LocationContext)
+  const ctx = useContext(LocationContext)
+  if (!ctx) throw new Error('useLocation must be used within a LocationProvider')
+  return ctx
 }
