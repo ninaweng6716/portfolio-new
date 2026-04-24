@@ -3,6 +3,8 @@ import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import { writeFileSync, mkdirSync } from 'fs'
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 function sitemapPlugin() {
   return {
     name: 'generate-sitemap',
@@ -24,7 +26,7 @@ function sitemapPlugin() {
 
 export default defineConfig({
   base: '/',
-  plugins: [react(), svgr(), sitemapPlugin()],
+  plugins: [react(), svgr(), sitemapPlugin(), cloudflare()],
   build: {
     cssCodeSplit: true,
   },
