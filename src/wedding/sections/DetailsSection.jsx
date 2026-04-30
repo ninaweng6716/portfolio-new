@@ -1,96 +1,94 @@
 import { SectionHeader } from "../components/WeddingPrimitives"
+import { DETAILS } from "../data/weddingDetails"
 
-const DETAILS = [
-  {
-    icon: "♡",
-    title: "Ceremony",
-    main: "Dr. Sun Yat-Sen Garden",
-    sub: "3:00 PM\nPlease be seated by 2:45",
-    link: { label: "Get Directions", href: "#" },
-  },
-  {
-    icon: "✦",
-    title: "Reception",
-    main: "Sun Sui Wah",
-    sub: "5:00 PM — Midnight\nMain St., Vancouver",
-    link: { label: "View Venue", href: "#" },
-  },
-  {
-    icon: "✿",
-    title: "Dress Code",
-    main: "Cocktail Attire",
-    sub: "Semi-formal encouraged.\nGarden-friendly footwear advised.",
-  },
-  {
-    icon: "❀",
-    title: "Wedding Colours",
-    colors: ["#C2A2B3", "#867CA6", "#7C9EBA", "#9DBEC0", "#0D4E5D"],
-    sub: "Feel free to incorporate these colors if you'd like to match",
-  }
-]
-
-function DetailCard({ icon, title, main, sub, link, colors }) {
+function DetailCard({ title, main, sub, link, colors, wide }) {
   return (
-    <div className="bg-white border border-[#e8d8b4] p-8 text-center ">
-      {/* Icon */}
-      <div
-        className="font-weddingBody text-[#c9a96e] mb-4 text-[clamp(1.4rem,3vw,1.8rem)]"
-      >
-        {icon}
-      </div>
+    <div className={[
+      "group relative flex flex-col overflow-hidden",
+      "bg-white border border-weddingTq-light",
+      "transition-all duration-500",
+      "hover:shadow-[0_12px_40px_rgba(13,78,93,0.16)] hover:-translate-y-1",
+      wide ? "col-span-2 max-sm:col-span-1" : "",
+    ].join(" ")}>
 
-      {/* Label */}
-      <h3 className="font-weddingDisplay text-[0.75rem] font-bold tracking-[0.35em] uppercase text-[#8a6e6e] mb-3">
-        {title}
-      </h3>
+      {/* Top accent stripe */}
+      <div className="h-1 w-full flex-shrink-0 bg-weddingTq" />
 
-      {/* Venue / name */}
-      {colors ? (
-        <div className="flex justify-center gap-4 mb-3">
-          {colors.map((color) => (
-            <div
-              key={color}
-              className="w-10 h-10 rounded-full border border-[#e8d8b4] shadow-sm"
-              style={{ backgroundColor: color }}
-            />
-          ))}
-        </div>
-      ) : (
-        <p className="font-weddingBody text-[#3d2c2c] leading-snug mb-2 text-[clamp(1.5rem,2.5vw,1.4rem)]">
+      <div className="flex flex-col flex-1 p-8 gap-4">
+
+        {/* Card title */}
+        <h3 className="font-weddingBody text-[0.7rem] tracking-[0.4em] uppercase font-semibold text-weddingPrint/50">
+          {title}
+        </h3>
+
+        {/* Main display type */}
+        <p className="font-weddingDisplay font-light whitespace-pre-line leading-[1.05]
+                      text-[clamp(2rem,4.5vw,2.8rem)] tracking-[-0.02em] text-weddingPrint">
           {main}
         </p>
-      )}
 
-      {/* Details */}
-      <p className="text-base font-weddingBody text-[#8a6e6e] tracking-wide leading-relaxed whitespace-pre-line">
-        {sub}
-      </p>
+        {/* Colour swatches — only rendered when colors present, slotted below main */}
+        {colors && (
+          <div className="flex flex-wrap gap-4 items-end">
+            {colors.map(({ tw, name }) => (
+              <div key={name} className="flex flex-col items-center gap-2">
+                <div className={`w-10 h-10 rounded-full ring-1 ring-black/10 ${tw}`} />
+              </div>
+            ))}
+          </div>
+        )}
 
-      {/* Optional link */}
-      {link && (
-        <a
-          href={link.href}
-          className="font-weddingBody inline-block mt-4 text-[0.7rem] tracking-[0.2em] uppercase text-[#c9a96e] no-underline border-b border-[#e8d8b4] pb-0.5 transition-colors duration-200 hover:border-[#c9a96e]"
-        >
-          {link.label}
-        </a>
-      )}
+        {/* Sub text */}
+        <p className="font-weddingBody text-[0.95rem] leading-relaxed whitespace-pre-line mt-auto text-weddingPrint">
+          {sub}
+        </p>
+
+        {/* Link */}
+        {link && (
+          <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 w-fit mt-2
+                     font-weddingBody text-xs tracking-[0.25em] uppercase font-medium
+                     no-underline border-b pb-0.5 transition-colors duration-200
+                     text-weddingTq border-weddingTq hover:text-weddingTq-dim hover:border-weddingTq-dim">
+            {link.label}
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" strokeWidth="1.5"/>
+            </svg>
+          </a>
+        )}
+      </div>
+
+      {/* Ghost numeral removed — label removed per request */}
     </div>
   )
 }
 
 export default function DetailsSection() {
   return (
-    <section id="details" className="bg-[#f0e6de]">
-      <div className="max-w-3xl mx-auto px-8 py-20">
+    <section id="details" className="relative bg-weddingTq-soft overflow-hidden">
+
+      <div aria-hidden="true"
+           className="absolute -top-10 -right-8 pointer-events-none select-none
+                      font-weddingDisplay font-light text-weddingTq/[0.05]
+                      text-[22rem] leading-none">
+        W
+      </div>
+
+      <div aria-hidden="true"
+           className="absolute inset-0 pointer-events-none
+                      [background-image:radial-gradient(circle,theme(colors.weddingTq.DEFAULT)_1px,transparent_1px)]
+                      [background-size:28px_28px] opacity-[0.04]" />
+
+      <div className="relative max-w-3xl mx-auto px-8 py-24">
         <SectionHeader
-          label="Everything you need"
-          heading={<>Wedding <em className="italic text-[#9e7b7b]">Details</em></>}
+          label="Everything you need to know"
+          heading={<>Wedding <em className="italic text-weddingPrint">Details</em></>}
         />
-        <div className="grid grid-cols-2 gap-8 mt-4 max-sm:grid-cols-1 items-stretch auto-rows-fr">
+
+        <div className="grid grid-cols-2 gap-4 mt-6 max-sm:grid-cols-1 auto-rows-fr">
           {DETAILS.map(d => <DetailCard key={d.title} {...d} />)}
         </div>
       </div>
+
     </section>
   )
 }

@@ -1,42 +1,56 @@
-import { useState } from "react"
 import { SectionHeader } from "../components/WeddingPrimitives"
 
 export default function RSVPSection() {
-  const [submitted, setSubmitted] = useState(false)
-
   return (
-    <section id="rsvp" className="bg-[#f0e6de] text-[#faf7f2]">
-      <div className="max-w-3xl mx-auto px-8 py-20">
+    <section id="rsvp" className="relative bg-weddingTq-soft overflow-hidden">
 
-        {/* Section header — overridden for dark bg */}
-        <p className="font-weddingBody text-[0.65rem] tracking-[0.4em] uppercase text-[#c9a96e] text-center mb-4">
-          Kindly reply
-        </p>
-        <h2
-          className="font-weddingDisplay font-normal text-[#3d2c2c] text-center leading-tight mb-8 text-[clamp(2rem,5vw,3rem)]"
-        >
-          RSVP
-        </h2>
-        <div className="flex items-center justify-center gap-3 mb-10">
-          <div className="flex-1 h-px bg-[#c9a96e]/30" style={{ maxWidth: 60 }} />
-          <span
-            className="text-2xl text-[#c9a96e] leading-none"
-          >
-            ✦
-          </span>
-          <div className="flex-1 h-px bg-[#c9a96e]/30" style={{ maxWidth: 60 }} />
+      {/* Ghost watermark */}
+      <div aria-hidden="true"
+           className="absolute -top-10 -right-8 pointer-events-none select-none
+                      font-weddingDisplay font-light text-weddingTq/[0.05]
+                      text-[22rem] leading-none">
+        R
+      </div>
+
+      {/* Dot grid */}
+      <div aria-hidden="true"
+           className="absolute inset-0 pointer-events-none
+                      [background-image:radial-gradient(circle,theme(colors.weddingTq.DEFAULT)_1px,transparent_1px)]
+                      [background-size:28px_28px] opacity-[0.04]" />
+
+      <div className="relative max-w-2xl mx-auto px-8 py-24">
+        <SectionHeader
+          label="RSVP"
+          heading={<>Let us know if you will be able to <em className="italic text-weddingPrint">join us</em></>}
+        />
+
+        {/* Card — same structure as DetailCard */}
+        <div className="group relative flex flex-col overflow-hidden
+                        bg-white border border-weddingTq-light
+                        transition-all duration-500
+                        hover:shadow-[0_12px_40px_rgba(13,78,93,0.16)]">
+
+          {/* Top accent stripe */}
+          <div className="h-1 w-full flex-shrink-0 bg-weddingTq" />
+
+          <div className="flex flex-col items-center p-10 gap-4 text-center">
+
+            <h3 className="font-weddingBody text-[0.7rem] tracking-[0.4em] uppercase font-semibold text-weddingPrint">
+              Kindly Respond By
+            </h3>
+
+            <p className="font-weddingDisplay font-light leading-[1.05]
+                          text-[clamp(2rem,4.5vw,2.8rem)] tracking-[-0.02em] text-weddingPrint">
+              August 9, 2026
+            </p>
+
+            <p className="font-weddingBody text-[0.95rem] leading-relaxed text-weddingPrint mt-2">
+              Please respond via your personalized RSVP link sent to your email or phone.
+            </p>
+
+          </div>
         </div>
 
-          <p
-            className="font-weddingBody text-center italic text-[#8a6e6e]/70 leading-relaxed mb-10 text-[clamp(1rem,2vw,1.1rem)]"
-          >
-            Please respond to our invitation via your personalized RSVP link by
-          </p>
-          <p
-            className="font-weddingBody text-center text-[#3d2c2c]/70 leading-relaxed mb-10 text-[clamp(2.25rem,2vw,1.1rem)]"
-          >
-            August 9, 2026
-          </p>
       </div>
     </section>
   )
