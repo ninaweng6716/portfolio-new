@@ -344,11 +344,6 @@
 
   /* ── Wedding Hero ────────────────────────────────────────────────────── */
 
-  /* Corner frames */
-  .wedding-card-corner-light {
-    @apply absolute w-16 h-16 opacity-20 border-weddingTq;
-  }
-
   /* White frosted card holding all text content */
   .wedding-card-div-light {
     @apply relative z-10 bg-white/80 backdrop-blur-sm px-12 py-10

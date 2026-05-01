@@ -14,7 +14,7 @@ function FAQItem({ q, a }) {
   }, [a])
 
   return (
-    <div className="py-5 border-b border-weddingPink-light last:border-0">
+    <div className="py-5 border-b border-weddingTq-light last:border-0">
       <button
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
@@ -56,8 +56,8 @@ export default function FAQSection() {
     <section id="faq" className="bg-white">
       <div className="max-w-2xl mx-auto px-8 py-20">
         <SectionHeader
-          label="Questions"
-          heading={<>Frequently Asked <em className="italic text-weddingPrint">Questions</em></>}
+          label="Frequently Asked Questions"
+          heading={<>Find the answers to <em className="italic text-weddingPrint"> common questions</em></>}
         />
         <div className="mt-4">
           {FAQS.map(({ q, a }) => (

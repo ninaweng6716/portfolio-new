@@ -1,3 +1,5 @@
+import LogoMark from "../components/LogoMark"
+
 const FOOTER_LINKS = [
   { label: "Details", href: "#details" },
   { label: "Gallery", href: "#gallery" },
@@ -16,9 +18,9 @@ export default function WeddingFooter() {
     <footer className="bg-weddingTq-soft px-8 pt-16 pb-8">
       <div className="max-w-3xl mx-auto">
 
-        {/* Monogram */}
-        <div className="wedding-nav-monogram text-center text-4xl mb-4">
-          N <span className="wedding-ampersand">&amp;</span> J
+        {/* Logo */}
+        <div className="flex justify-center mb-4">
+          <LogoMark className="h-20" />
         </div>
 
         {/* Back to top */}

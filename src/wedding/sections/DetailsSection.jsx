@@ -56,8 +56,6 @@ function DetailCard({ title, main, sub, link, colors, wide }) {
           </a>
         )}
       </div>
-
-      {/* Ghost numeral removed — label removed per request */}
     </div>
   )
 }
@@ -65,18 +63,6 @@ function DetailCard({ title, main, sub, link, colors, wide }) {
 export default function DetailsSection() {
   return (
     <section id="details" className="relative bg-weddingTq-soft overflow-hidden">
-
-      <div aria-hidden="true"
-           className="absolute -top-10 -right-8 pointer-events-none select-none
-                      font-weddingDisplay font-light text-weddingTq/[0.05]
-                      text-[22rem] leading-none">
-        W
-      </div>
-
-      <div aria-hidden="true"
-           className="absolute inset-0 pointer-events-none
-                      [background-image:radial-gradient(circle,theme(colors.weddingTq.DEFAULT)_1px,transparent_1px)]
-                      [background-size:28px_28px] opacity-[0.04]" />
 
       <div className="relative max-w-3xl mx-auto px-8 py-24">
         <SectionHeader

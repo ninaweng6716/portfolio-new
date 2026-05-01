@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import LogoMark from "../components/LogoMark"
 
 const NAV_ITEMS = [
   { label: "Details", href: "#details" },
@@ -37,8 +38,13 @@ export default function WeddingNav() {
       >
         <div className="max-w-4xl mx-auto flex items-center justify-between">
 
-          <a href="#hero" className="wedding-nav-monogram" onClick={e => scrollToSection(e, "#hero")}>
-            N <span className="wedding-ampersand">&amp;</span> J
+          <a
+            href="#hero"
+            onClick={e => scrollToSection(e, "#hero")}
+            aria-label="Back to top"
+            className="block h-10 w-auto"
+          >
+            <LogoMark className="h-10" />
           </a>
 
           <ul className="hidden md:flex items-center gap-9 list-none">
@@ -52,22 +58,24 @@ export default function WeddingNav() {
           </ul>
 
           <button
-            className="md:hidden flex flex-col justify-center gap-[5px] w-7 h-7 bg-transparent border-none cursor-pointer p-0"
+            className="md:hidden relative flex flex-col justify-center items-center w-7 h-7 bg-transparent border-none cursor-pointer p-0"
             onClick={() => setMenuOpen(v => !v)}
             aria-label="Toggle menu"
           >
-            <span className={`block h-px bg-weddingPrint transition-transform duration-200 origin-center ${menuOpen ? "translate-y-[6px] rotate-45" : ""}`} />
-            <span className={`block h-px bg-weddingPrint transition-opacity duration-200 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-px bg-weddingPrint transition-transform duration-200 origin-center ${menuOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
+            <span className={`absolute w-full h-px bg-weddingPrint transition-all duration-300 ${menuOpen ? "rotate-45" : "-translate-y-[6px]"}`} />
+            <span className={`absolute w-full h-px bg-weddingPrint transition-all duration-300 ${menuOpen ? "opacity-0 scale-0" : "opacity-100 scale-100"}`} />
+            <span className={`absolute w-full h-px bg-weddingPrint transition-all duration-300 ${menuOpen ? "-rotate-45" : "translate-y-[6px]"}`} />
           </button>
         </div>
       </nav>
 
+      {/* Mobile drawer */}
       <div
         className={`md:hidden fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
+        {menuOpen && <LogoMark className="h-16 mb-4" />}
         {NAV_ITEMS.map(({ label, href }) => (
           <a key={href} href={href} onClick={e => scrollToSection(e, href, closeMenu)} className="wedding-nav-mobile-link">
             {label}
