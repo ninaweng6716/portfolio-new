@@ -3,6 +3,33 @@ import { SectionHeader } from "../components/WeddingPrimitives"
 function AddToCalendarButton() {
   const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("RSVP Deadline – Jeff & Nina's Wedding")}&dates=20260809/20260810&details=${encodeURIComponent("Please submit your RSVP by this date.")}`
 
+  function handleAppleCalendar() {
+    const icsContent = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Jeff & Nina Wedding//EN",
+      "BEGIN:VEVENT",
+      "UID:rsvp-deadline-jeff-nina-2026@wedding",
+      "DTSTAMP:20260501T000000Z",
+      "DTSTART;VALUE=DATE:20260809",
+      "DTEND;VALUE=DATE:20260810",
+      "SUMMARY:RSVP Deadline – Jeff & Nina's Wedding",
+      "DESCRIPTION:Please submit your RSVP by this date.",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n")
+
+    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = "rsvp-deadline.ics"
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <div className="flex flex-col items-center gap-6">
       <span className="font-weddingDisplay font-light leading-[1.05]
@@ -27,12 +54,12 @@ function AddToCalendarButton() {
           Google Calendar
         </a>
         <span className="text-weddingPrint/20 text-xs select-none">·</span>
-        <a
-          href="/rsvp-deadline.ics"
+        <button
+          onClick={handleAppleCalendar}
           aria-label="Add RSVP deadline to Apple or other calendar"
           className="inline-flex items-center gap-1.5
                      font-weddingBody text-[0.6rem] tracking-[0.25em] uppercase
-                     text-weddingTq border-b border-weddingTq pb-px
+                     text-weddingTq border-b border-weddingTq pb-px bg-transparent cursor-pointer
                      transition-colors duration-200 hover:text-weddingTq-dim hover:border-weddingTq-dim"
         >
           <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true">
@@ -40,7 +67,7 @@ function AddToCalendarButton() {
             <path d="M0.5 3.5h8M3 0.5v2M6 0.5v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
           </svg>
           Apple / Other
-        </a>
+        </button>
       </div>
     </div>
   )
