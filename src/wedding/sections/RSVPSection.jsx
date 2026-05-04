@@ -1,23 +1,6 @@
 import { SectionHeader } from "../components/WeddingPrimitives"
 
 function AddToCalendarButton() {
-  const icsContent = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Jeff & Nina Wedding//EN",
-    "BEGIN:VEVENT",
-    "UID:rsvp-deadline-jeff-nina-2026@wedding",
-    "DTSTAMP:20260501T000000Z",
-    "DTSTART;VALUE=DATE:20260809",
-    "DTEND;VALUE=DATE:20260810",
-    "SUMMARY:RSVP Deadline – Jeff & Nina's Wedding",
-    "DESCRIPTION:Please submit your RSVP by this date.",
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n")
-
-  const appleHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`
-
   return (
     <div className="flex flex-col items-center gap-6">
       <span className="font-weddingDisplay font-light leading-[1.05]
@@ -25,8 +8,7 @@ function AddToCalendarButton() {
         August 9, 2026
       </span>
       <a
-        href={appleHref}
-        download="rsvp-deadline.ics"
+        href="/rsvp-deadline.ics"
         aria-label="Add RSVP deadline to your calendar"
         className="wedding-cal-btn"
       >

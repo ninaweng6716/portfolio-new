@@ -1,2 +1,6 @@
 /photos/*
   Cache-Control: public, max-age=31536000, immutable
+
+/rsvp-deadline.ics
+  Content-Type: text/calendar; charset=utf-8
+  Content-Disposition: attachment; filename="rsvp-deadline.ics"
