@@ -24,7 +24,6 @@ export default {
         rule: '#E4E8EB',
         bg:   '#F5FFFD',
 
-        // ── Wedding palette ──────────────────────────────────────────────
         weddingPrint: {
           DEFAULT: '#545454',
           light:   '#7a7a7a',
@@ -62,11 +61,16 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%':      { transform: 'translateY(-5px)' },
         },
+        fadeIn: {
+          '0%':   { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
-        drift: 'drift 8s ease-in-out infinite alternate',
-        blink: 'blink 2.4s ease-in-out infinite',
-        float: 'float 3s ease-in-out infinite',
+        drift:   'drift 8s ease-in-out infinite alternate',
+        blink:   'blink 2.4s ease-in-out infinite',
+        float:   'float 3s ease-in-out infinite',
+        fadeIn:  'fadeIn 0.4s ease-in-out',
       },
     },
   },

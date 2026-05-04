@@ -477,8 +477,7 @@
 
   /* Desktop nav link — default + hover */
   .wedding-nav-link {
-    @apply font-weddingBody text-[0.65rem] tracking-[0.3em] uppercase
-           no-underline text-weddingPrint transition-colors duration-200
+    @apply font-weddingDisplay font-bold text-[0.75rem] tracking-[0.3em] uppercase no-underline text-weddingPrint transition-colors duration-200
            pb-0.5 border-b border-transparent
            hover:border-weddingTq hover:text-weddingPrint;
   }

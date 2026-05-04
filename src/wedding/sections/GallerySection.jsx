@@ -68,14 +68,15 @@ function useSwipe(onSwipeLeft, onSwipeRight) {
   return { onTouchStart, onTouchMove, onTouchEnd, onClickCapture }
 }
 
-function PhotoCard({ label, src, thumbSrc, onClick }) {
+function PhotoCard({ label, src, thumbSrc, onClick, index }) {
   return (
     <button
       onClick={onClick}
       aria-label={`Open photo: ${label}`}
       className="w-full aspect-square cursor-pointer overflow-hidden
                  border border-weddingTq-light bg-weddingTq-soft
-                 transition-all duration-200 hover:scale-105 active:scale-95
+                 transition-transform duration-200 hover:scale-105 active:scale-95
+                 will-change-transform transform-gpu
                  focus-visible:outline-2 focus-visible:outline-weddingTq focus-visible:outline-offset-2"
     >
       {src ? (
@@ -84,8 +85,11 @@ function PhotoCard({ label, src, thumbSrc, onClick }) {
           srcSet={`${thumbSrc} 400w, ${src} 1600w`}
           sizes="(min-width: 768px) 33vw, 50vw"
           alt={label}
-          loading="lazy"
+          width={400}
+          height={400}
+          loading="eager"
           decoding="async"
+          fetchPriority={index < 4 ? "high" : "auto"}
           className="w-full h-full object-cover"
         />
       ) : (
@@ -98,8 +102,9 @@ function PhotoCard({ label, src, thumbSrc, onClick }) {
 }
 
 function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
-  const isOpen = index !== null
-  const swipe  = useSwipe(onNext, onPrev)
+  const isOpen    = index !== null
+  const swipe     = useSwipe(onNext, onPrev)
+  const [imgLoaded, setImgLoaded] = useState(false)
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : ""
@@ -119,6 +124,7 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
 
   useEffect(() => {
     if (index === null) return
+    setImgLoaded(false)
     const preload = (i) => { const img = new Image(); img.src = PHOTOS[(i + PHOTOS.length) % PHOTOS.length].src }
     preload(index + 1)
     preload(index - 1)
@@ -135,7 +141,6 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
       aria-label={`Photo: ${photo.label}`}
       className="fixed inset-0 z-[9999] bg-black flex flex-col"
     >
-      {/* Top bar — tap anywhere here to close */}
       <div
         className="flex-shrink-0 flex items-center justify-between px-4 py-3 cursor-pointer"
         onClick={onClose}
@@ -155,7 +160,6 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
         </button>
       </div>
 
-      {/* Image area — never closes on tap, only swipe/arrow buttons work here */}
       <div
         className="flex-1 relative flex items-center justify-center overflow-hidden"
         onTouchStart={swipe.onTouchStart}
@@ -164,12 +168,23 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
         onClickCapture={swipe.onClickCapture}
       >
         {photo.src ? (
-          <img
-            src={photo.src}
-            alt={photo.label}
-            decoding="async"
-            className="w-full h-full object-contain pointer-events-none select-none"
-          />
+          <>
+            {!imgLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full border-2 border-white/20 border-t-white/80 animate-spin" />
+              </div>
+            )}
+            <img
+              key={photo.src}
+              src={photo.src}
+              alt={photo.label}
+              decoding="async"
+              onLoad={() => setImgLoaded(true)}
+              className={`w-full h-full object-contain pointer-events-none select-none transition-opacity duration-300 ${
+                imgLoaded ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          </>
         ) : (
           <div className="flex flex-col items-center gap-4 bg-weddingTq-soft p-16">
             <span aria-hidden="true" className="font-serif italic text-weddingTq text-5xl">✿</span>
@@ -203,7 +218,6 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
         </button>
       </div>
 
-      {/* Dot indicators */}
       <div className="flex-shrink-0 flex justify-center gap-1.5 py-4">
         {PHOTOS.map((_, i) => (
           <button
@@ -222,10 +236,24 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
 
 export default function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(null)
+  const [loadedCount, setLoadedCount] = useState(0)
   const triggerRef = useRef(null)
+
+  const allLoaded = loadedCount >= PHOTOS.length
+
+  useEffect(() => {
+    PHOTOS.forEach(p => {
+      const img = new Image()
+      img.onload  = () => setLoadedCount(c => c + 1)
+      img.onerror = () => setLoadedCount(c => c + 1)
+      img.src = p.thumbSrc
+    })
+  }, [])
 
   const handleOpen = useCallback((i) => {
     triggerRef.current = document.activeElement
+    const img = new Image()
+    img.src = PHOTOS[i].src
     setActiveIndex(i)
   }, [])
 
@@ -248,11 +276,20 @@ export default function GallerySection() {
           heading={<>Our <em className="italic text-weddingPrint">Gallery</em></>}
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-8">
-          {PHOTOS.map((p, i) => (
-            <PhotoCard key={p.label} {...p} onClick={() => handleOpen(i)} />
-          ))}
-        </div>
+        {!allLoaded ? (
+          <div className="flex flex-col items-center justify-center gap-4 mt-8 py-24">
+            <div className="w-8 h-8 rounded-full border-2 border-weddingTq-light border-t-weddingTq animate-spin" />
+            <p className="font-weddingBody text-[0.65rem] tracking-[0.2em] uppercase text-weddingPrint/40">
+              Loading photos…
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-8 animate-fadeIn">
+            {PHOTOS.map((p, i) => (
+              <PhotoCard key={p.label} {...p} index={i} onClick={() => handleOpen(i)} />
+            ))}
+          </div>
+        )}
 
         <p className="mt-6 text-center font-weddingBody text-[0.65rem] tracking-[0.25em] uppercase text-weddingPrint/40">
           Photography by{" "}
