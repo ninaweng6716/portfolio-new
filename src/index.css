@@ -427,12 +427,6 @@
   }
 
   /* ── Wedding Footer ──────────────────────────────────────────────────── */
-
-  .wedding-footer-monogram {
-    @apply font-weddingBody font-light text-weddingPrint tracking-wide
-           text-2xl leading-none text-center mb-8;
-  }
-
   .wedding-footer-back-to-top {
     @apply font-weddingBody flex flex-col items-center gap-4
            bg-transparent border-none cursor-pointer
@@ -445,12 +439,6 @@
     @apply w-px h-10 bg-gradient-to-t from-weddingPrint/30 to-transparent;
   }
 
-  .wedding-footer-link {
-    @apply font-weddingBody text-[0.65rem] tracking-[0.3em] uppercase
-           no-underline text-weddingPrint/75 transition-colors duration-200
-           pb-0.5 border-b border-transparent hover:text-weddingPrint hover:border-weddingPrint/30;
-  }
-
   .wedding-footer-divider {
     @apply h-px bg-white/10 mb-7;
   }
@@ -461,18 +449,6 @@
 
   .wedding-footer-byline {
     @apply font-weddingBody text-[0.6rem] tracking-[0.2em] uppercase text-white/25;
-  }
-
-  /* ── Wedding Nav ─────────────────────────────────────────────────────── */
-
-  /* Monogram / logo mark */
-  .wedding-nav-monogram {
-    @apply font-weddingBody font-light text-weddingPrint tracking-wide
-           no-underline text-2xl leading-none;
-  }
-
-  .wedding-nav-monogram .wedding-ampersand {
-    @apply text-weddingTq;
   }
 
   /* Desktop nav link — default + hover */

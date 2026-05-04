@@ -37,7 +37,7 @@ export default function LogoMark({ className }) {
       >
         <img
           src="/logo.svg"
-          alt="N & J monogram"
+          alt="Seal and Fox"
           onClick={handleClick}
           className={[
             className,

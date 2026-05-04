@@ -69,6 +69,8 @@ function useSwipe(onSwipeLeft, onSwipeRight) {
 }
 
 function PhotoCard({ label, src, thumbSrc, onClick, index }) {
+  const [loaded, setLoaded] = useState(false)
+
   return (
     <button
       onClick={onClick}
@@ -90,7 +92,10 @@ function PhotoCard({ label, src, thumbSrc, onClick, index }) {
           loading="eager"
           decoding="async"
           fetchPriority={index < 4 ? "high" : "auto"}
-          className="w-full h-full object-cover"
+          onLoad={() => setLoaded(true)}
+          className={`w-full h-full object-cover transition-opacity duration-500 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center">
@@ -236,24 +241,7 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
 
 export default function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(null)
-  const [allLoaded, setAllLoaded]     = useState(false)
   const triggerRef = useRef(null)
-
-  useEffect(() => {
-    let count = 0
-    const total = PHOTOS.length
-
-    PHOTOS.forEach(p => {
-      const img = new Image()
-      const done = () => {
-        count++
-        if (count >= total) setAllLoaded(true)
-      }
-      img.onload  = done
-      img.onerror = done
-      img.src = p.thumbSrc
-    })
-  }, [])
 
   const handleOpen = useCallback((i) => {
     triggerRef.current = document.activeElement
@@ -281,20 +269,11 @@ export default function GallerySection() {
           heading={<>Our <em className="italic text-weddingPrint">Gallery</em></>}
         />
 
-        {!allLoaded ? (
-          <div className="flex flex-col items-center justify-center gap-4 mt-8 py-24">
-            <div className="w-8 h-8 rounded-full border-2 border-weddingTq-light border-t-weddingTq animate-spin" />
-            <p className="font-weddingBody text-[0.65rem] tracking-[0.2em] uppercase text-weddingPrint/40">
-              Loading photos…
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-8 animate-fadeIn">
-            {PHOTOS.map((p, i) => (
-              <PhotoCard key={p.label} {...p} index={i} onClick={() => handleOpen(i)} />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-8">
+          {PHOTOS.map((p, i) => (
+            <PhotoCard key={p.label} {...p} index={i} onClick={() => handleOpen(i)} />
+          ))}
+        </div>
 
         <p className="mt-6 text-center font-weddingBody text-[0.65rem] tracking-[0.25em] uppercase text-weddingPrint/40">
           Photography by{" "}

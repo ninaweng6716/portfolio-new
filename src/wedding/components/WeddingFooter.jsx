@@ -40,7 +40,7 @@ export default function WeddingFooter() {
                 <a
                   href={href}
                   onClick={e => scrollTo(e, href)}
-                  className="wedding-footer-link"
+                  className="wedding-nav-link"
                 >
                   {label}
                 </a>
