@@ -353,8 +353,8 @@
 
   /* Eyebrow */
   .wedding-card-eyebrow-light {
-    @apply font-weddingBody text-[0.65rem] tracking-[0.4em] uppercase
-           text-weddingPrint mb-6;
+    @apply font-weddingBody text-[0.75rem] md:text-[1rem] tracking-[0.4em] uppercase
+           text-weddingPrint mb-8;
   }
 
   /* Names block — horizontal */

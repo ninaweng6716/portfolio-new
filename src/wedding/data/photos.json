@@ -1,9 +1,0 @@
-[
-  { "label": "Indoor-1",       "src": "/photos/CStudio_0001.webp", "w": 260, "h": 210, "top": 20,  "left": 10,  "rot": -3   },
-  { "label": "Indoor-2",       "src": "/photos/CStudio_0018.webp", "w": 190, "h": 240, "top": 10,  "left": 290, "rot": 4    },
-  { "label": "Indoor-3",       "src": "/photos/CStudio_0051.webp", "w": 220, "h": 175, "top": 180, "left": 60,  "rot": -1.5 },
-  { "label": "Cherry-White-1", "src": "/photos/CStudio_0077.webp", "w": 160, "h": 195, "top": 260, "left": 310, "rot": 5.5  },
-  { "label": "Cherry-White-2", "src": "/photos/CStudio_0085.webp", "w": 185, "h": 145, "top": 340, "left": 100, "rot": -4   },
-  { "label": "Cherry-Purple-1","src": "/photos/CStudio_0184.webp", "w": 150, "h": 180, "top": 50,  "left": 490, "rot": 2    },
-  { "label": "Rose-Purple-1",  "src": "/photos/CStudio_0206.webp", "w": 170, "h": 210, "top": 300, "left": 480, "rot": -3.5 }
-]
