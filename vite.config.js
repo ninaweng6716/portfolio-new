@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import { writeFileSync, mkdirSync } from 'fs'
-import basicSsl from '@vitejs/plugin-basic-ssl'
 
 function sitemapPlugin() {
   return {
@@ -40,7 +39,7 @@ function icsMimePlugin() {
 
 export default defineConfig({
   base: '/',
-  plugins: [react(), svgr(), sitemapPlugin(), basicSsl(), icsMimePlugin()],
+  plugins: [react(), svgr(), sitemapPlugin(), icsMimePlugin()],
   server: {
     host: true,
   },
