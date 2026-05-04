@@ -1,34 +1,22 @@
 import { SectionHeader } from "../components/WeddingPrimitives"
 
 function AddToCalendarButton() {
-  const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("RSVP Deadline – Jeff & Nina's Wedding")}&dates=20260809/20260810&details=${encodeURIComponent("Please submit your RSVP by this date.")}`
+  const icsContent = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Jeff & Nina Wedding//EN",
+    "BEGIN:VEVENT",
+    "UID:rsvp-deadline-jeff-nina-2026@wedding",
+    "DTSTAMP:20260501T000000Z",
+    "DTSTART;VALUE=DATE:20260809",
+    "DTEND;VALUE=DATE:20260810",
+    "SUMMARY:RSVP Deadline – Jeff & Nina's Wedding",
+    "DESCRIPTION:Please submit your RSVP by this date.",
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n")
 
-  function handleAppleCalendar() {
-    const icsContent = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Jeff & Nina Wedding//EN",
-      "BEGIN:VEVENT",
-      "UID:rsvp-deadline-jeff-nina-2026@wedding",
-      "DTSTAMP:20260501T000000Z",
-      "DTSTART;VALUE=DATE:20260809",
-      "DTEND;VALUE=DATE:20260810",
-      "SUMMARY:RSVP Deadline – Jeff & Nina's Wedding",
-      "DESCRIPTION:Please submit your RSVP by this date.",
-      "END:VEVENT",
-      "END:VCALENDAR",
-    ].join("\r\n")
-
-    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = "rsvp-deadline.ics"
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
+  const appleHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsContent)}`
 
   return (
     <div className="flex flex-col items-center gap-6">
@@ -36,39 +24,18 @@ function AddToCalendarButton() {
                        text-[clamp(2rem,4.5vw,2.8rem)] tracking-[-0.02em] text-weddingPrint">
         August 9, 2026
       </span>
-      <div className="flex items-center gap-3">
-        <a
-          href={googleUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Add RSVP deadline to Google Calendar"
-          className="inline-flex items-center gap-1.5
-                     font-weddingBody text-[0.6rem] tracking-[0.25em] uppercase
-                     text-weddingTq border-b border-weddingTq pb-px
-                     transition-colors duration-200 hover:text-weddingTq-dim hover:border-weddingTq-dim"
-        >
-          <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true">
-            <rect x="0.5" y="1.5" width="8" height="7" rx="0.5" stroke="currentColor" strokeWidth="1.2"/>
-            <path d="M0.5 3.5h8M3 0.5v2M6 0.5v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          </svg>
-          Google Calendar
-        </a>
-        <span className="text-weddingPrint/20 text-xs select-none">·</span>
-        <button
-          onClick={handleAppleCalendar}
-          aria-label="Add RSVP deadline to Apple or other calendar"
-          className="inline-flex items-center gap-1.5
-                     font-weddingBody text-[0.6rem] tracking-[0.25em] uppercase
-                     text-weddingTq border-b border-weddingTq pb-px bg-transparent cursor-pointer
-                     transition-colors duration-200 hover:text-weddingTq-dim hover:border-weddingTq-dim"
-        >
-          <svg width="9" height="9" viewBox="0 0 9 9" fill="none" aria-hidden="true">
-            <rect x="0.5" y="1.5" width="8" height="7" rx="0.5" stroke="currentColor" strokeWidth="1.2"/>
-            <path d="M0.5 3.5h8M3 0.5v2M6 0.5v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          </svg>
-          Apple / Other
-        </button>
-      </div>
+      <a
+        href={appleHref}
+        download="rsvp-deadline.ics"
+        aria-label="Add RSVP deadline to your calendar"
+        className="wedding-cal-btn"
+      >
+        <svg width="11" height="11" viewBox="0 0 9 9" fill="none" aria-hidden="true">
+          <rect x="0.5" y="1.5" width="8" height="7" rx="0.5" stroke="currentColor" strokeWidth="1.2"/>
+          <path d="M0.5 3.5h8M3 0.5v2M6 0.5v2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+        </svg>
+        Add to Calendar
+      </a>
     </div>
   )
 }

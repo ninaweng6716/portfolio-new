@@ -22,26 +22,13 @@ function sitemapPlugin() {
   }
 }
 
-function icsMimePlugin() {
-  return {
-    name: 'ics-mime',
-    configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        if (req.url?.endsWith('.ics')) {
-          res.setHeader('Content-Type', 'text/calendar;charset=utf-8')
-          res.setHeader('Content-Disposition', 'inline')
-        }
-        next()
-      })
-    }
-  }
-}
 
 export default defineConfig({
   base: '/',
-  plugins: [react(), svgr(), sitemapPlugin(), icsMimePlugin()],
+  plugins: [react(), svgr(), sitemapPlugin()],
   server: {
     host: true,
+    allowedHosts: ['.trycloudflare.com'],
   },
   build: {
     cssCodeSplit: true,
