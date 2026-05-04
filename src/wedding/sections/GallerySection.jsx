@@ -236,16 +236,21 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
 
 export default function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(null)
-  const [loadedCount, setLoadedCount] = useState(0)
+  const [allLoaded, setAllLoaded]     = useState(false)
   const triggerRef = useRef(null)
 
-  const allLoaded = loadedCount >= PHOTOS.length
-
   useEffect(() => {
+    let count = 0
+    const total = PHOTOS.length
+
     PHOTOS.forEach(p => {
       const img = new Image()
-      img.onload  = () => setLoadedCount(c => c + 1)
-      img.onerror = () => setLoadedCount(c => c + 1)
+      const done = () => {
+        count++
+        if (count >= total) setAllLoaded(true)
+      }
+      img.onload  = done
+      img.onerror = done
       img.src = p.thumbSrc
     })
   }, [])
