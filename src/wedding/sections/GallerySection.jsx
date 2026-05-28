@@ -1,30 +1,53 @@
 import { useState, useCallback, useEffect, useRef } from "react"
 import { SectionHeader } from "../components/WeddingPrimitives"
 
-const PHOTO_FILENAMES = [
-  'CStudio_0001.webp',
-  'CStudio_0018.webp',
-  'CStudio_0051.webp',
-  'CStudio_0077.webp',
-  'CStudio_0085.webp',
-  'CStudio_0184.webp',
-  'CStudio_0206.webp',
-  'CStudio_0214.webp',
-  'CStudio_0237.webp',
-  'CStudio_0248.webp',
-  'CStudio_0251.webp',
-  'CStudio_0266.webp',
-]
+// Dynamically load all photos from public/photos folder
+const getPhotosFromFolder = () => {
+  // Import all .webp files from public/photos at build time
+  const photosModules = import.meta.glob('/public/photos/*.webp', { query: '?url', import: 'default' })
+  
+  // Extract base filenames and group by original vs thumbnail
+  const photos = {}
+  const thumbnails = new Set()
+  
+  Object.keys(photosModules).forEach(path => {
+    // Extract filename from path (e.g., "/public/photos/CStudio_0001.webp" -> "CStudio_0001.webp")
+    const filename = path.split('/').pop()
+    const base = filename.replace(/\.[^/.]+$/, "")
+    const ext = filename.match(/\.[^/.]+$/)?.[0] ?? ""
+    
+    // Check if this is a thumbnail (_400)
+    if (base.endsWith('_400')) {
+      thumbnails.add(base.replace(/_400$/, ""))
+    } else {
+      // Store original photos (non-thumbnails)
+      if (!photos[base]) {
+        photos[base] = { base, ext, hasThumbnail: false }
+      }
+    }
+  })
+  
+  // Build final photos array with fallback logic
+  return Object.values(photos)
+    .sort((a, b) => a.base.localeCompare(b.base))
+    .map(photo => {
+      const hasThumbnail = thumbnails.has(photo.base)
+      
+      if (!hasThumbnail) {
+        console.warn(`⚠️ Missing thumbnail for ${photo.base}${photo.ext} - please add ${photo.base}_400${photo.ext}`)
+      }
+      
+      return {
+        label: photo.base,
+        src: `/photos/${photo.base}${photo.ext}`,
+        thumbSrc: hasThumbnail 
+          ? `/photos/${photo.base}_400${photo.ext}`
+          : `/photos/${photo.base}${photo.ext}`, // Fallback to full-size
+      }
+    })
+}
 
-const PHOTOS = PHOTO_FILENAMES.map(filename => {
-  const base = filename.replace(/\.[^/.]+$/, "")
-  const ext  = filename.match(/\.[^/.]+$/)?.[0] ?? ""
-  return {
-    label:    base,
-    src:      `/photos/${filename}`,
-    thumbSrc: `/photos/${base}_400${ext}`,
-  }
-})
+const PHOTOS = getPhotosFromFolder()
 
 const SWIPE_THRESHOLD = 50
 
@@ -84,14 +107,14 @@ function PhotoCard({ label, src, thumbSrc, onClick, index }) {
       {src ? (
         <img
           src={thumbSrc}
-          srcSet={`${thumbSrc} 400w, ${src} 1600w`}
+          srcSet={thumbSrc}
           sizes="(min-width: 768px) 33vw, 50vw"
           alt={label}
           width={400}
           height={400}
-          loading="eager"
+          loading={index < 6 ? "eager" : "lazy"}
           decoding="async"
-          fetchPriority={index < 4 ? "high" : "auto"}
+          fetchPriority={index < 3 ? "high" : "low"}
           onLoad={() => setLoaded(true)}
           className={`w-full h-full object-cover transition-opacity duration-500 ${
             loaded ? "opacity-100" : "opacity-0"

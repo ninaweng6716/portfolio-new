@@ -9,17 +9,13 @@ function SpotifyPlayer() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Open our wedding playlist on Spotify"
-      className="fixed bottom-6 right-6 z-40 group
-                 flex items-center gap-3
-                 bg-white border border-weddingPink-light px-4 py-3
-                 shadow-md transition-all duration-200
-                 hover:shadow-lg hover:-translate-y-0.5 no-underline"
+      className="spotify-playlist-btn group"
     >
       <img
         src="/bouquet.svg"
         alt=""
         className="absolute -top-4 -left-8 w-20 h-14 object-contain pointer-events-none z-10 -rotate-12
-                   transition-transform duration-200 group-hover:-translate-y-0.5"
+                   transition-all duration-200 ease-out group-hover:-translate-y-0.5"
       />
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="12" cy="12" r="12" fill="#1DB954"/>
