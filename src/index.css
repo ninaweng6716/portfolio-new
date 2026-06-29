@@ -230,14 +230,6 @@
     margin-top: 0.75rem;
   }
 
-  .wedding-faq-link {
-    @apply font-semibold text-weddingTq underline decoration-weddingTq/50 underline-offset-4 transition-colors duration-200;
-  }
-
-  .wedding-faq-link:hover {
-    @apply text-weddingPrint underline decoration-weddingPrint/50;
-  }
-
   /* ── Wedding RSVP ────────────────────────────────────────────────────── */
 
   .wedding-rsvp-note {

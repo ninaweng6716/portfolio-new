@@ -13,7 +13,7 @@ export const DETAILS = [
     title: "Reception",
     main: "Sun Sui Wah (Main St.)",
     meta: "Begins at 7:00 PM",
-    body: "Please arrive at least 15 minutes early for check-in.",
+    body: "Please check in at the reception desk upon arrival.",
     link: {
       label: "Get Directions",
       href: "https://www.google.com/maps/place/Sun+Sui+Wah+Seafood+Restaurant/@49.250525,-123.1031822,17z/data=!3m2!4b1!5s0x548673fa1851198f:0xdc90055a228eb138!4m6!3m5!1s0x5486752e706a9a31:0x89c713b9c372f1fd!8m2!3d49.250525!4d-123.1006073!16s%2Fm%2F04yqwln?entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D",
