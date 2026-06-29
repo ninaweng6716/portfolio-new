@@ -114,7 +114,7 @@ function PhotoCard({ label, src, thumbSrc, onClick, index }) {
           height={400}
           loading={index < 6 ? "eager" : "lazy"}
           decoding="async"
-          fetchPriority={index < 3 ? "high" : "low"}
+          fetchpriority={index < 3 ? "high" : "low"}
           onLoad={() => setLoaded(true)}
           className={`w-full h-full object-cover transition-opacity duration-500 ${
             loaded ? "opacity-100" : "opacity-0"
@@ -173,7 +173,7 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
         className="flex-shrink-0 flex items-center justify-between px-4 py-3 cursor-pointer"
         onClick={onClose}
       >
-        <span className="font-weddingBody text-white/50 text-[0.65rem] tracking-[0.2em]">
+        <span className="font-weddingBody text-white/50 text-[0.65rem] tracking-[0.25rem]">
           {index + 1} / {PHOTOS.length}
         </span>
         <button
@@ -288,7 +288,6 @@ export default function GallerySection() {
     <section id="gallery" className="bg-white">
       <div className="max-w-3xl mx-auto px-8 py-20">
         <SectionHeader
-          label="Memories"
           heading={<>Our <em className="italic text-weddingPrint">Gallery</em></>}
         />
 

@@ -56,7 +56,6 @@ export default function FAQSection() {
     <section id="faq" className="bg-white">
       <div className="max-w-2xl mx-auto px-8 py-20">
         <SectionHeader
-          label="Frequently Asked Questions"
           heading={<>Find the answers to <em className="italic text-weddingPrint"> common questions</em></>}
         />
         <div className="mt-4">

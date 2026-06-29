@@ -11,9 +11,6 @@ export function Ornament() {
 export function SectionHeader({ label, heading }) {
   return (
     <>
-      <p className="wedding-section-header">
-        {label}
-      </p>
       <h2
         className="wedding-h2"
       >

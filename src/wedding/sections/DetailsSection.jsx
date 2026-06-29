@@ -17,7 +17,7 @@ function DetailCard({ title, main, sub, link, colors, wide }) {
       <div className="flex flex-col flex-1 p-8 gap-4">
 
         {/* Card title */}
-        <h3 className="font-weddingBody text-[0.7rem] tracking-[0.4em] uppercase font-semibold text-weddingPrint/50">
+        <h3 className="font-weddingBody text-[0.75rem] tracking-[0.25rem] uppercase font-semibold text-weddingPrint/50">
           {title}
         </h3>
 
@@ -46,7 +46,7 @@ function DetailCard({ title, main, sub, link, colors, wide }) {
         {/* Link */}
         {link && (
           <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 w-fit mt-2
-                     font-weddingBody text-xs tracking-[0.25em] uppercase font-medium
+                     font-weddingBody text-xs tracking-[0.25rem] uppercase font-medium
                      no-underline border-b pb-0.5 transition-colors duration-200
                      text-weddingTq border-weddingTq hover:text-weddingTq-dim hover:border-weddingTq-dim">
             {link.label}
@@ -66,7 +66,6 @@ export default function DetailsSection() {
 
       <div className="relative max-w-3xl mx-auto px-8 py-24">
         <SectionHeader
-          label="Everything you need to know"
           heading={<>Wedding <em className="italic text-weddingPrint">Details</em></>}
         />
 

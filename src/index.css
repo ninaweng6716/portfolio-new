@@ -152,10 +152,6 @@
     @apply font-weddingDisplay text-weddingPrint text-xl text-center leading-snug mb-6;
   }
 
-  .wedding-section-header {
-    @apply font-weddingBody text-[0.65rem] tracking-[0.4em] uppercase text-weddingPrint text-center mb-8;
-  }
-
   .wedding-section-text {
     @apply font-weddingBody text-weddingPrint text-lg text-center leading-relaxed mb-10;
   }
@@ -246,17 +242,16 @@
   }
 
   .wedding-rsvp-deadline-label {
-    @apply font-weddingBody text-[0.65rem] tracking-[0.3em] uppercase text-weddingPrint-light;
+    @apply font-weddingBody text-[0.65rem] tracking-[0.25rem] uppercase text-weddingPrint-light;
   }
 
   .wedding-rsvp-deadline-date {
     @apply font-weddingDisplay text-weddingPrint text-2xl font-light;
   }
 
-  .wedding-cal-btn,
-  .spotify-playlist-btn {
+  .wedding-cal-btn {
     @apply inline-flex items-center gap-2
-           font-weddingBody text-[0.75rem] tracking-[0.22em] uppercase font-semibold
+           font-weddingBody text-[0.75rem] tracking-[0.25rem] uppercase font-semibold
            text-weddingPrint bg-white border border-weddingTq
            px-4 py-3 rounded-lg no-underline transition-all duration-200
            shadow-sm;
@@ -266,13 +261,7 @@
     justify-content: center;
   }
 
-  .spotify-playlist-btn {
-    @apply fixed bottom-6 right-6 z-40;
-    will-change: transform, box-shadow;
-  }
-
-  .wedding-cal-btn:hover,
-  .spotify-playlist-btn:hover {
+  .wedding-cal-btn:hover {
     @apply shadow-md;
     transform: translateY(-0.125rem);
   }
@@ -291,7 +280,7 @@
   }
 
   .wedding-photo-label {
-    @apply text-[0.55rem] tracking-[0.22em] uppercase text-weddingPrint-light opacity-65;
+    @apply text-[0.55rem] tracking-[0.25rem] uppercase text-weddingPrint-light opacity-65;
   }
 
   .wedding-lightbox-overlay {
@@ -328,7 +317,7 @@
   }
 
   .wedding-lightbox-label {
-    @apply text-[0.65rem] tracking-[0.3em] uppercase text-weddingPrint opacity-80;
+    @apply text-[0.65rem] tracking-[0.25rem] uppercase text-weddingPrint opacity-80;
   }
 
   /* ── Wedding Details ─────────────────────────────────────────────────── */
@@ -342,7 +331,7 @@
   }
 
   .wedding-detail-label {
-    @apply font-weddingDisplay text-[0.75rem] font-bold tracking-[0.35em]
+    @apply font-weddingDisplay text-[0.75rem] font-bold tracking-[0.25rem]
            uppercase text-weddingPrint mb-3;
   }
 
@@ -361,7 +350,7 @@
   }
 
   .wedding-detail-link {
-    @apply font-weddingBody inline-block mt-4 text-[0.7rem] tracking-[0.2em]
+    @apply font-weddingBody inline-block mt-4 text-[0.75rem] tracking-[0.25rem]
            uppercase text-weddingTq no-underline border-b border-weddingTq-light
            pb-0.5 transition-colors duration-200 hover:border-weddingTq;
   }
@@ -377,8 +366,8 @@
 
   /* Eyebrow */
   .wedding-card-eyebrow-light {
-    @apply font-weddingBody text-[0.75rem] md:text-[1rem] tracking-[0.4em] uppercase
-           text-weddingPrint mb-8;
+    @apply font-weddingBody text-[0.75rem] md:text-[1rem] tracking-[0.25rem] uppercase
+           text-weddingPrint/75 mb-8;
   }
 
   /* Names block — horizontal */
@@ -403,7 +392,7 @@
   }
 
   .wedding-card-eyebrow-dark {
-    @apply font-weddingBody text-[0.65rem] tracking-[0.4em] uppercase
+    @apply font-weddingBody text-[0.65rem] tracking-[0.25rem] uppercase
            text-weddingPrint/70 mb-6;
   }
 
@@ -423,21 +412,21 @@
 
   /* Date */
   .wedding-card-date {
-    @apply font-weddingDisplay font-light text-weddingPrint/70
+    @apply font-weddingDisplay font-light text-weddingPrint/75
            text-[clamp(1rem,2vw,1.3rem)] text-center leading-tight mt-6 mb-2;
   }
 
   /* Venue */
   .wedding-card-venue {
-    @apply font-weddingBody text-weddingPrint/70
-           text-[clamp(0.7rem,1.2vw,0.85rem)] tracking-[0.15em] text-center
+    @apply font-weddingBody text-weddingPrint/75
+           text-[clamp(0.7rem,1.2vw,0.85rem)] tracking-[0.25rem] text-center
            leading-relaxed;
   }
 
   /* Scroll indicator */
   .wedding-card-scroll {
     @apply absolute bottom-10 flex flex-col items-center gap-2
-           text-[0.6rem] tracking-[0.3em] uppercase text-weddingPrint/40 z-10;
+           text-[0.6rem] tracking-[0.25rem] uppercase text-weddingPrint/40 z-10;
     animation: hero-fade-up 1s cubic-bezier(0.2, 0, 0.1, 1) 0.6s both;
   }
 
@@ -454,7 +443,7 @@
   .wedding-footer-back-to-top {
     @apply font-weddingBody flex flex-col items-center gap-4
            bg-transparent border-none cursor-pointer
-           text-weddingPrint/35 text-[0.6rem] tracking-[0.25em] uppercase
+           text-weddingPrint/35 text-[0.6rem] tracking-[0.25rem] uppercase
            mx-auto mb-8 transition-colors duration-200
            hover:text-weddingPrint;
   }
@@ -472,12 +461,12 @@
   }
 
   .wedding-footer-byline {
-    @apply font-weddingBody text-[0.6rem] tracking-[0.2em] uppercase text-white/25;
+    @apply font-weddingBody text-[0.6rem] tracking-[0.25rem] uppercase text-white/25;
   }
 
   /* Desktop nav link — default + hover */
   .wedding-nav-link {
-    @apply relative font-weddingDisplay font-bold text-[0.75rem] tracking-[0.3em] uppercase no-underline
+    @apply relative font-weddingDisplay font-bold text-[0.75rem] tracking-[0.25rem] uppercase no-underline
            text-weddingPrint transition-all duration-200 transform pb-0.5 border-b border-transparent;
   }
 
@@ -530,10 +519,6 @@
   .delay-3 { transition-delay: 0.3s; }
 }
 
-/* Hide Spotify button when mobile menu is open */
-html[data-mobile-menu-open="true"] a[aria-label="Open our wedding playlist on Spotify"] {
-  display: none !important;
-}
 
 /* Hide top nav logo when mobile menu is open */
 html[data-mobile-menu-open="true"] a[aria-label="Back to top"] {

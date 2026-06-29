@@ -40,8 +40,7 @@ export default function RSVPSection() {
 
       <div className="relative max-w-2xl mx-auto px-8 py-24">
         <SectionHeader
-          label="RSVP"
-          heading={<>Let us know if you will be able to <em className="italic text-weddingPrint">join us</em></>}
+          heading={<>Please <em className="italic text-weddingPrint">RSVP</em></>}
         />
 
         <div className="group relative flex flex-col overflow-hidden
@@ -53,15 +52,16 @@ export default function RSVPSection() {
 
           <div className="flex flex-col items-center p-10 gap-4 text-center">
 
-            <h3 className="font-weddingBody text-[0.7rem] tracking-[0.4em] uppercase font-semibold text-weddingPrint">
+            <h3 className="font-weddingBody text-[0.75rem] tracking-[0.25rem] uppercase font-semibold text-weddingPrint/75">
               Kindly Respond By
             </h3>
 
+            
             <AddToCalendarButton />
-
-            <p className="font-weddingBody text-[0.95rem] leading-relaxed text-weddingPrint mt-2">
-              Please respond via your personalized RSVP link sent to your email or phone.
+            <p className="font-weddingBody text-[0.95rem] leading-relaxed text-weddingPrint/75 mt-2">
+              Respond with your personalized RSVP link.
             </p>
+
 
           </div>
         </div>
