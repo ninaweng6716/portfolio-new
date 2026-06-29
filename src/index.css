@@ -145,11 +145,11 @@
   }
 
   .wedding-h2 {
-    @apply font-weddingDisplay text-weddingPrint text-3xl text-center leading-tight mb-8;
+    @apply font-weddingDisplay text-weddingPrint text-4xl text-center leading-tight mb-8;
   }
 
   .wedding-h3 {
-    @apply font-weddingDisplay text-weddingPrint text-xl text-center leading-snug mb-6;
+    @apply font-weddingDisplay text-weddingPrint text-base  leading-snug uppercase mb-2 tracking-[0.25em];
   }
 
   .wedding-section-text {
@@ -222,11 +222,20 @@
     transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
                 margin-top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     margin-top: 0;
+
   }
 
   .wedding-faq-item[open] .wedding-faq-answer {
     max-height: 200px;
     margin-top: 0.75rem;
+  }
+
+  .wedding-faq-link {
+    @apply font-semibold text-weddingTq underline decoration-weddingTq/50 underline-offset-4 transition-colors duration-200;
+  }
+
+  .wedding-faq-link:hover {
+    @apply text-weddingPrint underline decoration-weddingPrint/50;
   }
 
   /* ── Wedding RSVP ────────────────────────────────────────────────────── */
@@ -250,20 +259,23 @@
   }
 
   .wedding-cal-btn {
-    @apply inline-flex items-center gap-2
-           font-weddingBody text-[0.75rem] tracking-[0.25rem] uppercase font-semibold
-           text-weddingPrint bg-white border border-weddingTq
-           px-4 py-3 rounded-lg no-underline transition-all duration-200
-           shadow-sm;
-  }
-
-  .wedding-cal-btn {
-    justify-content: center;
+    @apply inline-flex items-center justify-center gap-3 rounded-full border-2 border-weddingTq-light
+           cursor-pointer uppercase transition-all duration-200 ease-out px-5 py-2 font-weddingDisplay font-semibold
+           tracking-[0.24em] text-weddingPrint/75 shadow-[0_10px_24px_-14px_rgba(194,162,179,0.35)]
+           no-underline;
   }
 
   .wedding-cal-btn:hover {
-    @apply shadow-md;
-    transform: translateY(-0.125rem);
+    @apply -translate-y-0.5 shadow-[0_14px_28px_-14px_rgba(13,78,93,0.5)];
+  }
+
+  .wedding-cal-btn:active {
+    @apply scale-[0.98] shadow-[0_6px_16px_-14px_rgba(13,78,93,0.5)];
+  }
+
+  .wedding-cal-btn-icon {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/80
+           text-weddingPrint/75 transition-none transform-none;
   }
 
   /* ── Wedding Gallery ─────────────────────────────────────────────────── */
@@ -357,32 +369,33 @@
 
   /* ── Wedding Hero ────────────────────────────────────────────────────── */
 
-  /* White frosted card holding all text content */
+  /* Soft glassy hero card */
   .wedding-card-div-light {
-    @apply relative z-10 bg-white/80 backdrop-blur-sm px-12 py-10
-           flex flex-col items-center;
+    @apply relative z-10 mx-auto flex flex-col items-center rounded-[2rem] border border-white/70
+           bg-white/70 px-8 py-10 shadow-[0_20px_60px_rgba(13,78,93,0.12)]
+           backdrop-blur-xl sm:px-12 sm:py-12 md:min-w-[600px];
     animation: hero-fade-up 1s cubic-bezier(0.2, 0, 0.1, 1) 0.1s both;
   }
 
   /* Eyebrow */
   .wedding-card-eyebrow-light {
-    @apply font-weddingBody text-[0.75rem] md:text-[1rem] tracking-[0.25rem] uppercase
-           text-weddingPrint/75 mb-8;
+    @apply font-weddingBody text-[0.7rem] sm:text-[0.8rem] tracking-[0.3em] uppercase
+           text-weddingPrint/70 mb-6 sm:mb-8;
   }
 
   /* Names block — horizontal */
   .wedding-card-names-light {
-    @apply flex flex-row items-baseline justify-center leading-none gap-4;
+    @apply flex flex-row items-baseline justify-center leading-none gap-3 sm:gap-4;
   }
 
   .wedding-card-name-light {
     @apply font-weddingDisplay font-light text-weddingPrint
-           text-[clamp(2.5rem,8vw,6rem)] tracking-[-0.02em] leading-[0.9];
+           text-[clamp(2.4rem,7vw,5.4rem)] tracking-[-0.02em] leading-[0.92];
   }
 
   .wedding-card-amp-light {
-    @apply font-weddingDisplay italic text-weddingTq
-           text-[clamp(1.5rem,4vw,3rem)] leading-none;
+    @apply font-weddingDisplay italic text-weddingTq/80
+           text-[clamp(1.4rem,3.5vw,2.6rem)] leading-none;
   }
 
   .wedding-card-div-dark {
@@ -418,9 +431,9 @@
 
   /* Venue */
   .wedding-card-venue {
-    @apply font-weddingBody text-weddingPrint/75
-           text-[clamp(0.7rem,1.2vw,0.85rem)] tracking-[0.25rem] text-center
-           leading-relaxed;
+    @apply font-weddingBody text-weddingPrint/70
+           text-[clamp(0.72rem,1.1vw,0.85rem)] tracking-[0.2em] text-center
+           leading-relaxed max-w-[28rem];
   }
 
   /* Scroll indicator */

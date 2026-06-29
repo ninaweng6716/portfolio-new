@@ -74,7 +74,7 @@ export default function HeroSection() {
         style={{
           backgroundImage: "url('/hero-bg.jpg')",
           backgroundSize: "cover",
-          backgroundPosition: "center 30%",
+          backgroundPosition: "center 50%",
         }}
       >
         {/* Overlay */}
@@ -117,9 +117,10 @@ export default function HeroSection() {
 
           <Ornament />
 
-          <p className="wedding-card-venue">
-            Dr. Sun Yat-Sen Classical Chinese Garden &nbsp;·&nbsp; Sun Sui Wah (Main St.)
-          </p>
+          <div className="wedding-card-venue flex flex-col gap-4 text-sm">
+            <p>Dr. Sun Yat-Sen Classical Chinese Garden</p>
+            <p>Sun Sui Wah (Main St.)</p>
+          </div>
         </div>
 
         {/* Scroll indicator — bobs up and down */}
