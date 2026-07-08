@@ -10,7 +10,7 @@ export const DETAILS = [
         links: [
           {
             text: "Chinatown Plaza",
-            href: "https://www.google.com/maps/place/Chinatown+Plaza/@49.2791503,-123.10184,17z",
+            href: "https://www.google.com/maps/place/Chinatown+Plaza/@49.2791538,-123.1044149,17z/data=!3m2!4b1!5s0x5486717a5ffead83:0xe0347a73a4a6068f!4m6!3m5!1s0x5486717aa76acfd7:0x4160972be54a477a!8m2!3d49.2791503!4d-123.10184!16s%2Fg%2F11dzstkb8l?entry=ttu&g_ep=EgoyMDI2MDcwNi4wIKXMDSoASAFQAw%3D%3D",
           },
         ],
       },
@@ -34,7 +34,7 @@ export const DETAILS = [
         links: [
           {
             text: "behind the restaurant",
-            href: "https://www.google.com/maps/place/Sun+Sui+Wah+Seafood+Restaurant/@49.250525,-123.1031822,17z",
+            href: "https://www.google.com/maps/place/49%C2%B015'02.5%22N+123%C2%B006'01.4%22W/@49.250683,-123.100393,17z",
           },
         ],
       },
