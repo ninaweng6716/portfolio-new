@@ -47,6 +47,9 @@ export default {
           light:   '#2e6e7b',
           soft:    '#dbeaec',
         },
+        weddingTeal: {
+          DEFAULT: '#4E7979',
+        },
       },
       keyframes: {
         drift: {

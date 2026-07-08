@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react"
 import { SectionHeader } from "../components/WeddingPrimitives"
+import { ChevronLeftIcon, ChevronRightIcon } from "../components/WeddingIcons"
 
 // Dynamically load all photos from public/photos folder
 const getPhotosFromFolder = () => {
@@ -245,9 +246,7 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
                      rounded-full bg-black/30 hover:bg-black/50
                      transition-colors duration-200"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5L7 10L12 15" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <ChevronLeftIcon className="w-5 h-5 text-white" />
         </button>
 
         <button
@@ -258,9 +257,7 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
                      rounded-full bg-black/30 hover:bg-black/50
                      transition-colors duration-200"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 5L13 10L8 15" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <ChevronRightIcon className="w-5 h-5 text-white" />
         </button>
       </div>
 
