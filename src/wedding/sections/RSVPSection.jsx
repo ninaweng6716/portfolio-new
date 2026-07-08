@@ -1,32 +1,16 @@
 import { SectionHeader } from "../components/WeddingPrimitives"
 import WeddingCard from "../components/WeddingCard"
 
-const calendarButtonData = {
-  dateText: "August 9, 2026",
-  href: "/rsvp-deadline.ics",
-  label: "Add to Calendar",
-  ariaLabel: "Add RSVP deadline for August 9, 2026 to your calendar",
-}
-
-function BtnAddCalendar() {
-  return (
-    <div className="flex flex-col items-center gap-6">
-      <span className="font-weddingDisplay font-light leading-[1.05]
-                       text-[clamp(2rem,4.5vw,2.8rem)] tracking-[-0.02em] text-weddingPrint">
-        {calendarButtonData.dateText}
-      </span>
-      <a
-        href={calendarButtonData.href}
-        aria-label={calendarButtonData.ariaLabel}
-        className="wedding-cal-btn"
-      >
-        {calendarButtonData.label}
-      </a>
-    </div>
-  )
-}
-
 export default function RSVPSection() {
+  const rsvpDate = new Date("2026-08-09T23:59:59-07:00") // August 9, 2026, 11:59 PM PDT
+  const monthDay = rsvpDate.toLocaleDateString("en-US", { month: "long", day: "numeric" })
+  const fullDate = rsvpDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  })
+
   return (
     <section id="rsvp" className="relative bg-weddingTq-soft overflow-hidden">
 
@@ -52,8 +36,11 @@ export default function RSVPSection() {
           titleClassName="text-center"
           className="items-center text-center"
         >
-          <BtnAddCalendar />
-          <p className="font-weddingBody text-[0.95rem] whitespace-pre-line text-weddingPrint my-4">
+          <p className="mt-2 font-weddingDisplay text-[2.1rem] leading-none text-weddingPrint sm:text-[2.5rem]">
+            {monthDay}
+          </p>
+
+          <p className="font-weddingBody text-[0.95rem] whitespace-pre-line text-weddingPrint my-4 leading-relaxed">
             Please use your personalized RSVP link and respond only once per household.
           </p>
         </WeddingCard>

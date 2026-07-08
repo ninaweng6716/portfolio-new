@@ -88,20 +88,15 @@ export default function WeddingNav() {
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
-        {/* Header with close button */}
-        <div className="flex items-center justify-between px-8 py-6">
-          <div className="h-10 w-auto" />
-          <button
-            onClick={() => setMenuOpen(false)}
-            aria-label="Close menu"
-            className="w-9 h-9 flex items-center justify-center text-weddingPrint text-lg rounded-full hover:bg-weddingTq-soft transition-colors duration-200"
-          >
-            ✕
-          </button>
-        </div>
+        <button
+          onClick={() => setMenuOpen(false)}
+          aria-label="Close menu"
+          className="absolute top-6 right-8 w-9 h-9 flex items-center justify-center text-weddingPrint/75 text-lg rounded-full hover:bg-weddingTq-soft transition-colors duration-200"
+        >
+          ✕
+        </button>
 
-        {/* Navigation items */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-10">
+        <div className="flex-1 flex flex-col items-center justify-center gap-10 px-8">
           {NAV_ITEMS.map(({ label, href }) => (
             <a key={href} href={href} onClick={e => scrollToSection(e, href, closeMenu)} className="wedding-nav-mobile-link">
               {label}

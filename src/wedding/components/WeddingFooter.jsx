@@ -3,8 +3,8 @@ import LogoMark from "../components/LogoMark"
 const FOOTER_LINKS = [
   { label: "Details", href: "#details" },
   { label: "Gallery", href: "#gallery" },
-  { label: "FAQ",     href: "#faq"     },
   { label: "RSVP",   href: "#rsvp"    },
+  { label: "FAQ",     href: "#faq"     },
 ]
 
 function scrollTo(e, href) {
@@ -48,18 +48,6 @@ export default function WeddingFooter() {
             ))}
           </ul>
         </nav>
-
-        <div className="wedding-footer-divider" />
-
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <p className="wedding-footer-date">
-            Sunday, September 6th, 2026 &nbsp;·&nbsp; Vancouver
-          </p>
-          <p className="wedding-footer-byline">
-            Made with love
-          </p>
-        </div>
-
       </div>
     </footer>
   )

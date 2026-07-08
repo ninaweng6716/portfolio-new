@@ -135,8 +135,26 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
   const [imgLoaded, setImgLoaded] = useState(false)
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : ""
-    return () => { document.body.style.overflow = "" }
+    if (!isOpen) return
+
+    const root = document.documentElement
+    const body = document.body
+    const previousRootOverflow = root.style.overflow
+    const previousRootHeight = root.style.height
+    const previousBodyOverflow = body.style.overflow
+    const previousBodyHeight = body.style.height
+
+    root.style.overflow = "hidden"
+    root.style.height = "100%"
+    body.style.overflow = "hidden"
+    body.style.height = "100%"
+
+    return () => {
+      root.style.overflow = previousRootOverflow
+      root.style.height = previousRootHeight
+      body.style.overflow = previousBodyOverflow
+      body.style.height = previousBodyHeight
+    }
   }, [isOpen])
 
   useEffect(() => {
@@ -167,7 +185,7 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
       role="dialog"
       aria-modal="true"
       aria-label={`Photo: ${photo.label}`}
-      className="fixed inset-0 z-[9999] bg-black flex flex-col"
+      className="fixed inset-0 z-[9999] min-h-[100dvh] bg-black flex flex-col"
     >
       <div
         className="flex-shrink-0 flex items-center justify-between px-4 py-3 cursor-pointer"
@@ -265,8 +283,13 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
 export default function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(null)
   const triggerRef = useRef(null)
+  const scrollPositionRef = useRef({ x: 0, y: 0 })
 
   const handleOpen = useCallback((i) => {
+    scrollPositionRef.current = {
+      x: window.scrollX ?? window.pageXOffset ?? 0,
+      y: window.scrollY ?? window.pageYOffset ?? 0,
+    }
     triggerRef.current = document.activeElement
     const img = new Image()
     img.src = PHOTOS[i].src
@@ -275,7 +298,14 @@ export default function GallerySection() {
 
   const onClose = useCallback(() => {
     setActiveIndex(null)
-    triggerRef.current?.focus()
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: scrollPositionRef.current.y,
+        left: scrollPositionRef.current.x,
+        behavior: "instant",
+      })
+      triggerRef.current?.focus({ preventScroll: true })
+    })
   }, [])
 
   const onPrev = useCallback(() => setActiveIndex(i => (i - 1 + PHOTOS.length) % PHOTOS.length), [])

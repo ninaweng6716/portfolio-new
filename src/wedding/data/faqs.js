@@ -1,7 +1,7 @@
 export const FAQS = [
   {
     q: "When should I RSVP by?",
-    content: "Please RSVP by August 9, 2026. The RSVP link will close at 12 AM PDT on August 10." 
+    content: "Please RSVP by August 9. The RSVP link will close at 12 AM PDT on August 10." 
   },
   {
     q: "What time should I arrive at the ceremony?",
@@ -17,7 +17,7 @@ export const FAQS = [
   },
   {
     q: "What does the ceremony include and how long is it?",
-    content: "The ceremony consists of two parts: a Western ceremony and the Korean Paebaek ceremony. During the Paebaek, the couple pays their respects to their respective parents and takes part in a traditional date and chestnut-catching game. The Western ceremony is expected to last approximately 25 minutes, while the Paebaek will last about 40 minutes.",
+    content: "The ceremony consists of two parts: a Western ceremony and the Korean Paebaek ceremony. During Paebaek, the couple pays their respects to their respective parents and takes part in a traditional date and chestnut-catching game. The Western ceremony is expected to last approximately 25 minutes, while Paebaek will last about 40 minutes.",
   },
   {
     q: "Can I take photos or videos during the ceremony?",
@@ -41,6 +41,6 @@ export const FAQS = [
   },
   {
     q: "What if I have a dietary restriction, preference, or a  food allergy?",
-    content: "Please note any dietary needs in your RSVP. As this is a Chinese banquet-style dinner with shared dishes, individual dietary substitutions are limited, but we will do our best to accommodate where possible.",
+    content: "Please note any dietary needs in your RSVP. As this is a Chinese banquet-style dinner with shared dishes, individual dietary substitutions are limited. We will do our best to accommodate where possible.",
   }
 ]

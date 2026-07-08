@@ -30,7 +30,7 @@ export const DETAILS = [
       { name: "Sage",       tw: "bg-[#9DBEC0]" },
       { name: "Deep Teal",  tw: "bg-[#0D4E5D]" },
     ],
-    body: "Garden-friendly footwear also advised.",
+    body: "Feel free to incorporate these colours into your outfit. Garden-friendly footwear is also advised.",
     wide: true,
   },
 ]
