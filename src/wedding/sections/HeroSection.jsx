@@ -118,8 +118,7 @@ export default function HeroSection() {
           <Ornament />
 
           <div className="wedding-card-venue flex flex-col gap-4 text-sm">
-            <p>Dr. Sun Yat-Sen Classical Chinese Garden</p>
-            <p>Sun Sui Wah (Main St.)</p>
+            <p>Celebrate our special day with us.</p>
           </div>
         </div>
 
