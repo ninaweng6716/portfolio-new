@@ -2,8 +2,13 @@ import { SectionHeader } from "../components/WeddingPrimitives"
 import WeddingCard from "../components/WeddingCard"
 
 export default function RSVPSection() {
-  const rsvpDate = new Date("2026-08-09T23:59:59-07:00") // August 9, 2026, 11:59 PM PDT
-  const monthDay = rsvpDate.toLocaleDateString("en-US", { month: "long", day: "numeric" })
+  const rsvpDate = new Date("2026-08-10T08:00:00-07:00") // August 10, 2026, 8:00 AM PDT
+  const monthDay = rsvpDate.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  })
   const fullDate = rsvpDate.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",

@@ -30,7 +30,7 @@ export const DETAILS = [
     body: "Please check in at the welcome table upon arrival. A full banquet service, drinks, and desserts will be provided.",
     bullets: [
       {
-        text: "There is underground parking behind the restaurant (shared with other patrons); carpooling is appreciated.",
+        text: "There is limited underground parking behind the restaurant. Carpooling is strongly recommended.",
         links: [
           {
             text: "behind the restaurant",
