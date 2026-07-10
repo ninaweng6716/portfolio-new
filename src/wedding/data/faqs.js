@@ -1,7 +1,7 @@
 export const FAQS = [
   {
     q: "Does the RSVP link close?",
-    content: "Yes, the RSVP link will close at 8 AM PDT on August 10. Ensure to respond before then.", 
+    content: "Yes, the RSVP link will close at 10 PM PDT on August 9. Ensure to respond before then.", 
   },
   {
     q: "What does the ceremony include and how long is it?",
