@@ -192,7 +192,7 @@ export default function Background() {
         position:      "fixed",
         inset:         0,
         width:         "100vw",
-        height:        "100dvh",
+        height:        "var(--app-height)",
         pointerEvents: "none",
         zIndex:        0,
       }}

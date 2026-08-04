@@ -16,7 +16,7 @@ export default function Hero() {
     <section
       id="hero"
       aria-label="Introduction"
-      className="relative min-h-dvh pt-[calc(60px+6rem)] pb-32 px-[6vw] grid grid-cols-1 md:grid-cols-2 items-center gap-16"
+      className="relative min-h-[var(--app-height)] pt-[calc(60px+6rem)] pb-32 px-[6vw] grid grid-cols-1 md:grid-cols-2 items-center gap-16"
     >
       {/* Left copy */}
       <div className="relative z-1">

@@ -3,13 +3,25 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --app-height: 100vh;
+  }
+
   html {
     scroll-behavior: smooth;
+    height: 100%;
   }
 
   body {
     font-family: 'Lato', sans-serif;
     overflow-x: hidden;
+    min-height: 100vh;
+    min-height: var(--app-height);
+  }
+
+  #root {
+    min-height: 100vh;
+    min-height: var(--app-height);
   }
 }
 
@@ -259,7 +271,7 @@
 
   /* Scroll indicator */
   .wedding-card-scroll {
-    @apply absolute bottom-10 flex flex-col items-center gap-2
+    @apply absolute bottom-10 flex flex-col items-center
            text-[0.6rem] tracking-[0.25rem] uppercase text-weddingPrint/40 z-10;
     animation: hero-fade-up 1s cubic-bezier(0.2, 0, 0.1, 1) 0.6s both;
   }

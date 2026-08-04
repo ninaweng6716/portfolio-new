@@ -15,7 +15,7 @@ export default function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative py-[12rem] px-[6vw] grid grid-cols-1 md:grid-cols-2 gap-20 items-center min-h-dvh overflow-hidden"
+      className="relative py-[12rem] px-[6vw] grid grid-cols-1 md:grid-cols-2 gap-20 items-center min-h-[var(--app-height)] overflow-hidden"
     >
       <MailToast visible={mailToast} />
 

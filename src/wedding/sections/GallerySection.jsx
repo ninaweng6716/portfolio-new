@@ -186,7 +186,7 @@ function Lightbox({ index, onClose, onPrev, onNext, onJump }) {
       role="dialog"
       aria-modal="true"
       aria-label={`Photo: ${photo.label}`}
-      className="fixed inset-0 z-[9999] min-h-[100dvh] bg-black flex flex-col"
+      className="fixed inset-0 z-[9999] min-h-[var(--app-height)] bg-black flex flex-col"
     >
       <div
         className="flex-shrink-0 flex items-center justify-between px-4 py-3 cursor-pointer"

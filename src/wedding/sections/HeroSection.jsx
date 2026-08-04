@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useState } from "react"
 import { Ornament } from "../components/WeddingPrimitives"
 
 // Floating petal config
@@ -11,38 +11,7 @@ const PETALS = Array.from({ length: 12 }, (_, i) => ({
   symbol:   i % 3 === 0 ? "✿" : i % 3 === 1 ? "·" : "✦",
 }))
 
-function useTilt(ref) {
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-
-    const handleMove = (e) => {
-      const rect = el.getBoundingClientRect()
-      const cx = rect.left + rect.width  / 2
-      const cy = rect.top  + rect.height / 2
-      const dx = (e.clientX - cx) / (rect.width  / 2)
-      const dy = (e.clientY - cy) / (rect.height / 2)
-      setTilt({ x: dy * -4, y: dx * 4 })   // max ±4deg
-    }
-
-    const handleLeave = () => setTilt({ x: 0, y: 0 })
-
-    el.addEventListener("mousemove", handleMove)
-    el.addEventListener("mouseleave", handleLeave)
-    return () => {
-      el.removeEventListener("mousemove", handleMove)
-      el.removeEventListener("mouseleave", handleLeave)
-    }
-  }, [ref])
-
-  return tilt
-}
-
 export default function HeroSection() {
-  const cardRef  = useRef(null)
-  const tilt     = useTilt(cardRef)
   const [ready, setReady] = useState(false)
 
   // Stagger in after mount so entrance animation feels intentional
@@ -62,23 +31,28 @@ export default function HeroSection() {
           50%       { opacity: 0.5; }
         }
         @keyframes scrollBob {
-          0%, 100% { transform: translateY(0); }
-          50%       { transform: translateY(6px); }
+          0%, 100% { transform: translateY(0); opacity: 0.95; }
+          50%      { transform: translateY(7px); opacity: 0.6; }
         }
       `}</style>
 
-      <section
-        id="hero"
-        aria-label="Wedding announcement"
-        className="min-h-dvh flex flex-col items-center justify-center text-center relative px-8 py-24 overflow-hidden"
-        style={{
-          backgroundImage: "url('/hero-bg.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 50%",
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-weddingPink-soft/55" aria-hidden="true" />
+      <div className="relative isolate overflow-hidden">
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 z-0 w-full h-full object-cover object-center"
+          style={{
+            transform: "none",
+            willChange: "auto",
+          }}
+        />
+        <section
+          id="hero"
+          aria-label="Wedding announcement"
+          className="relative z-10 min-h-[clamp(40rem,85svh,56rem)] sm:min-h-[100vh] flex flex-col items-center justify-center text-center px-8 py-24"
+        >
+        <div className="absolute inset-0 z-[1] bg-weddingPink-soft/55" aria-hidden="true" />
 
         {/* Floating petals */}
         {ready && PETALS.map(({ id, left, delay, duration, size, symbol }) => (
@@ -98,13 +72,7 @@ export default function HeroSection() {
         ))}
 
         {/* Frosted text card — mouse tilt */}
-        <div
-          ref={cardRef}
-          className="wedding-card-div-light transition-transform duration-200 ease-out"
-          style={{
-            transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          }}
-        >
+        <div className="relative z-[2] wedding-card-div-light">
           <p className="wedding-card-eyebrow-light">
             <time dateTime="2026-09-06">September 6, 2026</time>
           </p>
@@ -122,17 +90,20 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Scroll indicator — bobs up and down */}
         <div
-          className="wedding-card-scroll"
+          className="absolute bottom-0 left-0 right-0 z-[2] flex flex-col items-center pb-6 wedding-card-scroll"
           aria-hidden="true"
           style={{ animation: "scrollBob 2s ease-in-out infinite" }}
         >
           <div className="wedding-card-scroll-line" />
-          <span className="font-weddingBody">Scroll</span>
+          <span className="font-weddingBody text-[0.9rem] font-semibold tracking-[0.36em] uppercase text-weddingPrint/60 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
+            Scroll
+          </span>
+          <span className="mt-2 text-[1rem] text-weddingPrint/60 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">⌄</span>
         </div>
 
-      </section>
+        </section>
+      </div>
     </>
   )
 }

@@ -20,7 +20,8 @@ export default function WeddingNav() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    function onScroll() { setScrolled(window.scrollY > 60) }
+    const onScroll = () => setScrolled(window.scrollY > 60)
+    onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
@@ -41,7 +42,7 @@ export default function WeddingNav() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-8 ${
+        className={`fixed top-0 left-0 right-0 z-50 px-8 transition-all duration-300 ease-out ${
           menuOpen ? "hidden md:block" : ""
         } ${
           scrolled
