@@ -2,8 +2,8 @@ export const DETAILS = [
   {
     title: "Ceremony",
     main: "Dr. Sun Yat-Sen Garden",
-    meta: "Arrive by 3:45 PM",
-    body: "Doors open at 3:30 PM. Please arrive by 3:45 PM for check-in. The ceremony will start promptly at 4:00 PM.",
+    meta: "Arrive by 3:30 PM",
+    body: "Please arrive by 3:30 PM for check-in. The ceremony will start promptly at 4:00 PM.",
     bullets: [
       {
         text: "Paid parking (EasyPark) is available at Chinatown Plaza — a 5-minute walk from the garden.",
@@ -16,6 +16,9 @@ export const DETAILS = [
       },
       {
         text: "The ceremony is mostly outdoors. If it rains, the ceremony will be moved indoors."
+      },
+      {
+        text: "There will be complimentary jasmine tea available for you to enjoy while you wait."
       }
     ],
     link: {
